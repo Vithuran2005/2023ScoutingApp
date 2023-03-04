@@ -177,13 +177,12 @@ onEvent("submit", "click", function( ) {
     data[counter][i] = sessionData[i];
 	}
 	var csvContent = "data:text/csv;charset=utf-8,";
-  data.forEach(function(dataArray) {
-  var impdata = dataArray.join(",");
-  csvContent += impdata + "\r\n";
+	data.forEach(function(dataArray) {
+	impdata = dataArray.join(",");
+	csvContent += impdata + "\r\n";
 	});
 	createDownloadLink("#export",csvContent,"file.csv");
 	counter++;
-	setScreen("home");
 //reseting
 	setChecked("checkboxALTTL", false);
 	setChecked("checkboxALTML", false);
@@ -194,7 +193,7 @@ onEvent("submit", "click", function( ) {
 	setChecked("checkboxALBTL", false);
 	setChecked("checkboxALBML", false);
 	setChecked("checkboxALBBL", false);
-  setChecked("checkboxALTTM", false);
+	setChecked("checkboxALTTM", false);
 	setChecked("checkboxALTMM", false);
 	setChecked("checkboxALTBM", false);
 	setChecked("checkboxALMTM", false);
@@ -320,6 +319,8 @@ onEvent("submit", "click", function( ) {
   setText("scouterNameInput", "Name");
   setText("matchNumberInput", "Match Number");
   setText("Comments", "Additional Comments");
+  
+  setScreen("home");
 });
 //checkbox auto left
 onEvent("checkboxALTTL","click", function(){
