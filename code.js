@@ -177,9 +177,9 @@ onEvent("submit", "click", function( ) {
     data[counter][i] = sessionData[i];
 	}
 	var csvContent = "data:text/csv;charset=utf-8,";
-	data.forEach(function(dataArray) {
-	var impdata = dataArray.join(",");
-	csvContent += impdata + "\r\n";
+  data.forEach(function(dataArray) {
+  var impdata = dataArray.join(",");
+  csvContent += impdata + "\r\n";
 	});
 	createDownloadLink("#export",csvContent,"file.csv");
 	counter++;
@@ -423,100 +423,100 @@ onEvent("buttonALBBL","click", function(){
 });
 onEvent("checkboxALTTM","click", function(){
   autoCone++;
-  autoHighCone++;
+  autoMidCone++;
   showElement("buttonALTTM");
 });
 onEvent("buttonALTTM","click", function(){
   autoCone--;
-  autoHighCone--;
+  autoMidCone--;
   hideElement("buttonALTTM");
   setChecked("checkboxALTTM", false);
 });
 onEvent("checkboxALTMM","click", function(){
   autoCube++;
-  autoHighCube++;
+  autoMidCube++;
   showElement("buttonALTMM");
 });
 onEvent("buttonALTMM","click", function(){
   autoCube--;
-  autoHighCube--;
+  autoMidCube--;
   hideElement("buttonALTMM");
   setChecked("checkboxALTMM", false);
 });
 onEvent("checkboxALTBM","click", function(){
   autoCone++;
-  autoHighCone++;
+  autoMidCone++;
   showElement("buttonALTBM");
 });
 onEvent("buttonALTBM","click", function(){
   autoCone--;
-  autoHighCone--;
+  autoMidCone--;
   hideElement("buttonALTBM");
   setChecked("checkboxALTBM", false);
 });
 onEvent("checkboxALMTM","click", function(){
   autoCone++;
-  autoHighCone++;
+  autoMidCone++;
   showElement("buttonALMTM");
 });
 onEvent("buttonALMTM","click", function(){
   autoCone--;
-  autoHighCone--;
+  autoMidCone--;
   hideElement("buttonALMTM");
   setChecked("checkboxALMTM", false);
 });
 onEvent("checkboxALMMM","click", function(){
   autoCube++;
-  autoHighCube++;
+  autoMidCube++;
   showElement("buttonALMMM");
 });
 onEvent("buttonALMMM","click", function(){
   autoCube--;
-  autoHighCube--;
+  autoMidCube--;
   hideElement("buttonALMMM");
   setChecked("checkboxALMMM", false);
 });
 onEvent("checkboxALMBM","click", function(){
   autoCone++;
-  autoHighCone++;
+  autoMidCone++;
   showElement("buttonALMBM");
 });
 onEvent("buttonALMBM","click", function(){
   autoCone--;
-  autoHighCone--;
+  autoMidCone--;
   hideElement("buttonALMBM");
   setChecked("checkboxALMBM", false);
 });
 onEvent("checkboxALBTM","click", function(){
   autoCone++;
-  autoHighCone++;
+  autoMidCone++;
   showElement("buttonALBTM");
 });
 onEvent("buttonALBTM","click", function(){
   autoCone--;
-  autoHighCone--;
+  autoMidCone--;
   hideElement("buttonALBTM");
   setChecked("checkboxALBTM", false);
 });
 onEvent("checkboxALBMM","click", function(){
   autoCube++;
-  autoHighCube--;
+  autoMidCube--;
   showElement("buttonALBMM");
 });
 onEvent("buttonALBMM","click", function(){
   autoCube--;
-  autoHighCube++;
+  autoMidCube++;
   hideElement("buttonALBMM");
   setChecked("checkboxALBMM", false);
 });
 onEvent("checkboxALBBM","click", function(){
   autoCone++;
-  autoHighCone++;
+  autoMidCone++;
   showElement("buttonALBBM");
 });
 onEvent("buttonALBBM","click", function(){
   autoCone--;
-  autoHighCone--;
+  autoMidCone--;
   hideElement("buttonALBBM");
   setChecked("checkboxALBBM", false);
 });
@@ -622,100 +622,100 @@ onEvent("buttonARBBR","click", function(){
 });
 onEvent("checkboxARTTM","click", function(){
   teleopCone++;
-  teleopHighCone++;
+  teleopMidCone++;
   showElement("buttonARTTM");
 });
 onEvent("buttonARTTM","click", function(){
   teleopCone--;
-  teleopHighCone--;
+  teleopMidCone--;
   hideElement("buttonARTTM");
   setChecked("checkboxARTTM", false);
 });
 onEvent("checkboxARTMM","click", function(){
   teleopCube++;
-  teleopHighCube++;
+  teleopMidCube++;
   showElement("buttonARTMM");
 });
 onEvent("buttonARTMM","click", function(){
   teleopCube--;
-  teleopHighCube--;
+  teleopMidCube--;
   hideElement("buttonARTMM");
   setChecked("checkboxARTMM", false);
 });
 onEvent("checkboxARTBM","click", function(){
   teleopCone++;
-  teleopHighCone++;
+  teleopMidCone++;
   showElement("buttonARTBM");
 });
 onEvent("buttonARTBM","click", function(){
   teleopCone--;
-  teleopHighCone--;
+  teleopMidCone--;
   hideElement("buttonARTBM");
   setChecked("checkboxARTBM", false);
 });
 onEvent("checkboxARMTM","click", function(){
   teleopCone++;
-  teleopHighCone++;
+  teleopMidCone++;
   showElement("buttonARMTM");
 });
 onEvent("buttonARMTM","click", function(){
   teleopCone--;
-  teleopHighCone--;
+  teleopMidCone--;
   hideElement("buttonARMTM");
   setChecked("checkboxARMTM", false);
 });
 onEvent("checkboxARMMM","click", function(){
   teleopCube++;
-  teleopHighCube++;
+  teleopMidCube++;
   showElement("buttonARMMM");
 });
 onEvent("buttonARMMM","click", function(){
   teleopCube--;
-  teleopHighCube--;
+  teleopMidCube--;
   hideElement("buttonARMMM");
   setChecked("checkboxARMMM", false);
 });
 onEvent("checkboxARMBM","click", function(){
   teleopCone++;
-  teleopHighCone++;
+  teleopMidCone++;
   showElement("buttonARMBM");
 });
 onEvent("buttonARMBM","click", function(){
   teleopCone--;
-  teleopHighCone--;
+  teleopMidCone--;
   hideElement("buttonARMBM");
   setChecked("checkboxARMBM", false);
 });
 onEvent("checkboxARBTM","click", function(){
   teleopCone++;
-  teleopHighCone++;
+  teleopMidCone++;
   showElement("buttonARBTM");
 });
 onEvent("buttonARBTM","click", function(){
   teleopCone--;
-  teleopHighCone--;
+  teleopMidCone--;
   hideElement("buttonARBTM");
   setChecked("checkboxARBTM", false);
 });
 onEvent("checkboxARBMM","click", function(){
   teleopCube++;
-  teleopHighCube--;
+  teleopMidCube--;
   showElement("buttonARBMM");
 });
 onEvent("buttonARBMM","click", function(){
   teleopCube--;
-  teleopHighCube++;
+  teleopMidCube++;
   hideElement("buttonARBMM");
   setChecked("checkboxARBMM", false);
 });
 onEvent("checkboxARBBM","click", function(){
   teleopCone++;
-  teleopHighCone++;
+  teleopMidCone++;
   showElement("buttonARBBM");
 });
 onEvent("buttonARBBM","click", function(){
   teleopCone--;
-  teleopHighCone--;
+  teleopMidCone--;
   hideElement("buttonARBBM");
   setChecked("checkboxARBBM", false);
 });
@@ -821,101 +821,101 @@ onEvent("buttonTLBBL","click", function(){
 });
 onEvent("buttonTLTTM","click", function(){
   teleopCone--;
-  teleopHighCone--;
+  teleopMidCone--;
   hideElement("buttonTLTTM");
   setChecked("checkboxTLTTM", false);
 });
 onEvent("checkboxTLTMM","click", function(){
   teleopCube++;
-  teleopHighCube++;
+  teleopMidCube++;
   showElement("buttonTLTMM");
 });
 onEvent("buttonTLTMM","click", function(){
   teleopCube--;
-  teleopHighCube--;
+  teleopMidCube--;
   hideElement("buttonTLTMM");
   setChecked("checkboxTLTMM", false);
 });
 onEvent("checkboxTLTBM","click", function(){
   teleopCone++;
-  teleopHighCone++;
+  teleopMidCone++;
   showElement("buttonTLTBM");
 });
 onEvent("buttonTLTBM","click", function(){
   teleopCone--;
-  teleopHighCone--;
+  teleopMidCone--;
   hideElement("buttonTLTBM");
   setChecked("checkboxTLTBM", false);
 });
 onEvent("checkboxTLMTM","click", function(){
   teleopCone++;
-  teleopHighCone++;
+  teleopMidCone++;
   showElement("buttonTLMTM");
 });
 onEvent("buttonTLMTM","click", function(){
   teleopCone--;
-  teleopHighCone--;
+  teleopMidCone--;
   hideElement("buttonTLMTM");
   setChecked("checkboxTLMTM", false);
 });
 onEvent("checkboxTLMMM","click", function(){
   teleopCube++;
-  teleopHighCube++;
+  teleopMidCube++;
   showElement("buttonTLMMM");
 });
 onEvent("buttonTLMMM","click", function(){
   teleopCube--;
-  teleopHighCube--;
+  teleopMidCube--;
   hideElement("buttonTLMMM");
   setChecked("checkboxTLMMM", false);
 });
 onEvent("checkboxTLMBM","click", function(){
   teleopCone++;
-  teleopHighCone++;
+  teleopMidCone++;
   showElement("buttonTLMBM");
 });
 onEvent("buttonTLMBM","click", function(){
   teleopCone--;
-  teleopHighCone--;
+  teleopMidCone--;
   hideElement("buttonTLMBM");
   setChecked("checkboxTLMBM", false);
 });
 onEvent("checkboxTLBTM","click", function(){
   teleopCone++;
-  teleopHighCone++;
+  teleopMidCone++;
   showElement("buttonTLBTM");
 });
 onEvent("buttonTLBTM","click", function(){
   teleopCone--;
-  teleopHighCone--;
+  teleopMidCone--;
   hideElement("buttonTLBTM");
   setChecked("checkboxTLBTM", false);
 });
 onEvent("checkboxTLBMM","click", function(){
   teleopCube++;
-  teleopHighCube--;
+  teleopMidCube--;
   showElement("buttonTLBMM");
 });
 onEvent("buttonTLBMM","click", function(){
   teleopCube--;
-  teleopHighCube++;
+  teleopMidCube++;
   hideElement("buttonTLBMM");
   setChecked("checkboxTLBMM", false);
 });
 onEvent("checkboxTLBBM","click", function(){
   teleopCone++;
-  teleopHighCone++;
+  teleopMidCone++;
   showElement("buttonTLBBM");
 });
 onEvent("buttonTLBBM","click", function(){
   teleopCone--;
-  teleopHighCone--;
+  teleopMidCone--;
   hideElement("buttonTLBBM");
   setChecked("checkboxTLBBM", false);
 });
 onEvent("checkboxTLTTM","click", function(){
   teleopCone++;
-  teleopHighCone++;
+  teleopMidCone++;
   showElement("buttonTLTTM");
 });
 //teleop right
@@ -1020,100 +1020,100 @@ onEvent("buttonTRBBR","click", function(){
 });
 onEvent("checkboxTRTTM","click", function(){
   teleopCone++;
-  teleopHighCone++;
+  teleopMidCone++;
   showElement("buttonTRTTM");
 });
 onEvent("buttonTRTTM","click", function(){
   teleopCone--;
-  teleopHighCone--;
+  teleopMidCone--;
   hideElement("buttonTRTTM");
   setChecked("checkboxTRTTM", false);
 });
 onEvent("checkboxTRTMM","click", function(){
   teleopCube++;
-  teleopHighCube++;
+  teleopMidCube++;
   showElement("buttonTRTMM");
 });
 onEvent("buttonTRTMM","click", function(){
   teleopCube--;
-  teleopHighCube--;
+  teleopMidCube--;
   hideElement("buttonTRTMM");
   setChecked("checkboxTRTMM", false);
 });
 onEvent("checkboxTRTBM","click", function(){
   teleopCone++;
-  teleopHighCone++;
+  teleopMidCone++;
   showElement("buttonTRTBM");
 });
 onEvent("buttonTRTBM","click", function(){
   teleopCone--;
-  teleopHighCone--;
+  teleopMidCone--;
   hideElement("buttonTRTBM");
   setChecked("checkboxTRTBM", false);
 });
 onEvent("checkboxTRMTM","click", function(){
   teleopCone++;
-  teleopHighCone++;
+  teleopMidCone++;
   showElement("buttonTRMTM");
 });
 onEvent("buttonTRMTM","click", function(){
   teleopCone--;
-  teleopHighCone--;
+  teleopMidCone--;
   hideElement("buttonTRMTM");
   setChecked("checkboxTRMTM", false);
 });
 onEvent("checkboxTRMMM","click", function(){
   teleopCube++;
-  teleopHighCube++;
+  teleopMidCube++;
   showElement("buttonTRMMM");
 });
 onEvent("buttonTRMMM","click", function(){
   teleopCube--;
-  teleopHighCube--;
+  teleopMidCube--;
   hideElement("buttonTRMMM");
   setChecked("checkboxTRMMM", false);
 });
 onEvent("checkboxTRMBM","click", function(){
   teleopCone++;
-  teleopHighCone++;
+  teleopMidCone++;
   showElement("buttonTRMBM");
 });
 onEvent("buttonTRMBM","click", function(){
   teleopCone--;
-  teleopHighCone--;
+  teleopMidCone--;
   hideElement("buttonTRMBM");
   setChecked("checkboxTRMBM", false);
 });
 onEvent("checkboxTRBTM","click", function(){
   teleopCone++;
-  teleopHighCone++;
+  teleopMidCone++;
   showElement("buttonTRBTM");
 });
 onEvent("buttonTRBTM","click", function(){
   teleopCone--;
-  teleopHighCone--;
+  teleopMidCone--;
   hideElement("buttonTRBTM");
   setChecked("checkboxTRBTM", false);
 });
 onEvent("checkboxTRBMM","click", function(){
   teleopCube++;
-  teleopHighCube--;
+  teleopMidCube--;
   showElement("buttonTRBMM");
 });
 onEvent("buttonTRBMM","click", function(){
   teleopCube--;
-  teleopHighCube++;
+  teleopMidCube++;
   hideElement("buttonTRBMM");
   setChecked("checkboxTRBMM", false);
 });
 onEvent("checkboxTRBBM","click", function(){
   teleopCone++;
-  teleopHighCone++;
+  teleopMidCone++;
   showElement("buttonTRBBM");
 });
 onEvent("buttonTRBBM","click", function(){
   teleopCone--;
-  teleopHighCone--;
+  teleopMidCone--;
   hideElement("buttonTRBBM");
   setChecked("checkboxTRBBM", false);
 });
@@ -1910,29 +1910,3 @@ onEvent("dropdownTLBBR", "change", function() {
   }
   localValuePrevious = getText("dropdownTLBBR");
 });
-/*
-<a id="export" class="myButton" download="" href="#">export</a>
-	<script>
-    function createDownloadLink(anchorSelector, str, fileName){
-        if(window.navigator.msSaveOrOpenBlob) {
-            var fileData = ['\ufeff'+str];
-            blobObject = new Blob(fileData);
-            $(anchorSelector).click(function(){
-                window.navigator.msSaveOrOpenBlob(blobObject, fileName);
-            });
-        } else {
-            var url = "data:text/plain;charset=utf-8,%EF%BB%BF" + encodeURIComponent(str);
-            $(anchorSelector).attr("download", fileName);
-            $(anchorSelector).attr("href", url);
-        }
-    }
-  </body>
-  <head>
-  <script>
-	function sendUserInfo(sessionData){
-		console.log(sessionData);
-		const request = new XHLHttpRequest();
-		request.open('POST', '/ProcessUserInfo/${JSON.stringify(sessionData)}');
-		request.send();
-	}
-*/
