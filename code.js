@@ -40,14 +40,20 @@ for (var i = 0; i < list.length; i++) {
 var sessionData = new Array(m);
 //continue buttons
 onEvent("continueHome", "click", function () {
-  if (getText("allianceDropdown") == "Left") {
+  if (getText("allianceDropdown") == "Left" && getText("scouterNameInput") != "" && getNumber("teamNumberInput") <= 9999 && getNumber("teamNumberInput") >= 1 && getNumber("matchNumberInput") >= 1 && getNumber("matchNumberInput") <= 250) {
     setScreen("autoLeft");
-  } else {
+  } else if (getText("allianceDropdown") == "Right" && getText("scouterNameInput") != "" && getNumber("teamNumberInput") <= 9999 && getNumber("teamNumberInput") >= 1 && getNumber("matchNumberInput") >= 1 && getNumber("matchNumberInput") <= 250) {
     setScreen("autoRight");
   }
-  teamNumber = getText("teamNumberInput");
+  teamNumber = getNumber("teamNumberInput");
   scouterName = getText("scouterNameInput");
-  matchNumber = getText("matchNumberInput");
+  matchNumber = getNumber("matchNumberInput");
+  if (getText("teamNumberInput") == "" || getText("scouterNameInput") == "" || getText("matchNumberInput") == "" || teamNumber > 9999 || teamNumber < 1 || matchNumber < 1 || matchNumber > 250) {
+    showElement("warning");
+    setTimeout(function () {
+      hideElement("warning");
+    }, 5000);
+  }
 });
 onEvent("continueTeleopRight", "click", function () {
   if (getChecked("checkboxTRPark") == true) {
@@ -123,12 +129,25 @@ onEvent("continueAutoLeft", "click", function () {
   }
   setScreen("teleopLeft");
 });
-onEvent("backButton", "click", function () {
+//back buttons
+onEvent("backSubmitButton", "click", function () {
   if (loc = "Teleop Right") {
     setScreen("teleopRight");
   } else if (loc = "Teleop Left") {
     setScreen("teleopLeft");
   }
+});
+onEvent("ALBack", "click", function () {
+  setScreen("home");
+});
+onEvent("ARBack", "click", function () {
+  setScreen("home");
+});
+onEvent("TLBack", "click", function () {
+  setScreen("autoLeft");
+});
+onEvent("TRBack", "click", function () {
+  setScreen("autoRight");
 });
 onEvent("submit", "click", function () {
   comments = getText("Comments");
