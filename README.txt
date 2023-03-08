@@ -1,7 +1,6 @@
 # README for 2023 Scouting App #
 
-This is the README file for the 2023 Scouting App app. It's a great place to write
-down some notes about how your app works. For starters, here is some information
+This is the README file for the 2023 Scouting App app. For starters, here is some information
 about the other files in this folder.
 
 Click index.html to run the app and the export button to save data. NEVER CLOSE YOUR TAB WITHOUT SAVING DATA!
