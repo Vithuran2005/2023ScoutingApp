@@ -50,8 +50,10 @@ onEvent("continueHome", "click", function () {
   matchNumber = getNumber("matchNumberInput");
   if (getText("teamNumberInput") == "" || getText("scouterNameInput") == "" || getText("matchNumberInput") == "" || teamNumber > 9999 || teamNumber < 1 || matchNumber < 1 || matchNumber > 250) {
     showElement("warning");
+	showElement("transparentWarning");
     setTimeout(function () {
       hideElement("warning");
+	  hideElement("transparentWarning");
     }, 5000);
   }
 });
