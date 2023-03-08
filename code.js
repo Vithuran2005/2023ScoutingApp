@@ -26,18 +26,18 @@ var teleopLowCone = 0;
 var teleopLowCube = 0;
 var comments = "";
 var points = 0;
-var m = 29;
-var n = 121;
+var length = 29;
+var height = 121;
 var loc = "";
-var data = new Array(m);
-for (var i = 0; i < m; i++) {
-  data[i] = new Array(n);
+var data = new Array(length);
+for (var i = 0; i < height; i++) {
+  data[i] = new Array(length);
 }
 var list = ["teamNumber", "scouterName", "matchNumber", "autoMobility", "autoDock", "autoEngage", "autoCone", "autoCube", "teleopPark", "teleopDock", "teleopEngage", "teleopCone", "teleopCube", "autoHighCone", "autoHighCube", "autoMidCone", "autoMidCube", "autoLowCone", "autoLowCube", "teleopHighCone", "teleopHighCube", "teleopMidCone", "teleopMidCube", "teleopLowCone", "teleopLowCube", "comments", "Auto Points", "Teleop Points", "points"];
 for (var i = 0; i < list.length; i++) {
   data[0][i] = list[i];
 }
-var sessionData = new Array(m);
+var sessionData = new Array(length);
 //continue buttons
 onEvent("continueHome", "click", function () {
   if (getText("allianceDropdown") == "Left" && getText("scouterNameInput") != "" && getNumber("teamNumberInput") <= 9999 && getNumber("teamNumberInput") >= 1 && getNumber("matchNumberInput") >= 1 && getNumber("matchNumberInput") <= 250) {
@@ -216,7 +216,7 @@ onEvent("submit", "click", function () {
   });
   var datetime = new Date();
   var time = datetime.toISOString();
-  createDownloadLink("#export", csvContent, time + ".csv");
+  createDownloadLink("#export", csvContent, "scouting_data " + time + ".csv");
   counter++;
   setScreen("home");
   //reseting checkboxes AL
