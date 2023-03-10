@@ -16,7 +16,7 @@ Extract the contents of the ZIP file and put them in a location that is easy for
 ## To Use The App
 
 To run the app just click the `index.html` file as shown below. This will open up on chrome or edge.
-![Alt text](assets/index.gif?raw=true "Zip extraction")
+![Alt text](assets/index.gif?raw=true "Click Index")
 
 ![Alt text](assets/scoutingAppHomePage.png?raw=true "Home Page")
 
