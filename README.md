@@ -2,19 +2,21 @@
 
 This is  the scouting app for 2023
 
-## To Download Python
-
 ## To Download This Application
 
 Download the code by clicking the green `Code` button and click `Download ZIP` from the dropdown menu.
 
-![Alt text](assets/Download_zip.png?raw=true "Downloading the ZIP file")
+![Alt text](assets/Download_zip.png?raw=true "Zip download")
 
 Extract the contents of the ZIP file and put them in a location that is easy for you to access. To do this, right-click the ZIP file and click `Extract All`.
 
-![Alt text](assets/ExtractFolder.gif?raw=true "Demonstrating how to extract the ZIP")
+![Alt text](assets/ExtractFolder.gif?raw=true "Zip extraction")
+
 
 ## To Use The App
+
+![Alt text](assets/index.gif?raw=true "Zip extraction")
+To run the app just click the `index.html` file as shown below. This will open up on chrome or edge.
 
 ![Alt text](assets/scoutingAppHomePage.png?raw=true "Home Page")
 
