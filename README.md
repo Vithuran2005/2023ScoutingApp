@@ -8,15 +8,15 @@ Download the code by clicking the green `Code` button and click `Download ZIP` f
 
 ![Alt text](assets/Download_zip.png?raw=true "Zip download")
 
-Extract the contents of the ZIP file and put them in a location that is easy for you to access. To do this, right-click the ZIP file and click `Extract All`.
+Extract the contents of the zip file and put them in a location that is easy for you to access. To do this, right-click the zip file and click `Extract All`.
 
 ![Alt text](assets/ExtractFolder.gif?raw=true "Zip extraction")
 
 
 ## To Use The App
 
+![Alt text](assets/index.png?raw=true "Click Index")
 To run the app just click the `index.html` file as shown below. This will open up on chrome or edge.
-![Alt text](assets/index.gif?raw=true "Click Index")
 
 ![Alt text](assets/scoutingAppHomePage.png?raw=true "Home Page")
 
