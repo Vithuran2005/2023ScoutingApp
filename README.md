@@ -8,7 +8,7 @@ This is  the scouting app for 2023
 
 Download the code by clicking the green `Code` button and click `Download ZIP` from the dropdown menu.
 
-![Alt text](assets/download_zip.png?raw=true "Downloading the ZIP file")
+![Alt text](assets/Download_zip.png?raw=true "Downloading the ZIP file")
 
 Extract the contents of the ZIP file and put them in a location that is easy for you to access. To do this, right-click the ZIP file and click `Extract All`.
 
