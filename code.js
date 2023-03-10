@@ -26,7 +26,9 @@ var teleopLowCone = 0;
 var teleopLowCube = 0;
 var comments = "";
 var points = 0;
-var length = 29;
+var defense = false;
+var notMove = false;
+var length = 31;
 var height = 121;
 var loc = "";
 var data = new Array(length);
@@ -153,6 +155,16 @@ onEvent("TRBack", "click", function () {
 });
 onEvent("submit", "click", function () {
   comments = getText("Comments");
+  if(getChecked("checkboxDefense") == true){
+	  defense = true;
+  } else {
+	  defense = false;
+  }
+  if(getChecked("checkboxNotMove") == true){
+	  notMove = true;
+  } else {
+	  notMove = false;
+  }
   if (autoMobility == true) {
     points = points + 3;
   }
@@ -207,6 +219,8 @@ onEvent("submit", "click", function () {
   sessionData[26] = autoPoints;
   sessionData[27] = teleopPoints;
   sessionData[28] = points;
+  sessionData[29] = defense;
+  sessionData[30] = notMove;
   for (var i = 0; i < sessionData.length; i++) {
     data[counter][i] = sessionData[i];
   }
