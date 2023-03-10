@@ -50,7 +50,7 @@ onEvent("continueHome", "click", function () {
   teamNumber = getNumber("teamNumberInput");
   scouterName = getText("scouterNameInput");
   matchNumber = getNumber("matchNumberInput");
-  if (getText("teamNumberInput") == "" || getText("scouterNameInput") == "" || getText("matchNumberInput") == "" || getNumber("teamNumberInput") > 9999 || getNumber("teamNumberInput") < 1 || getNumber("matchNumberInput") < 1 || getNumber("matchNumberInput") > 250 ) {
+  if (getText("teamNumberInput") == "" || getText("scouterNameInput") == "" || getText("matchNumberInput") == "" || getNumber("teamNumberInput") > 9999 || getNumber("teamNumberInput") < 1 || getNumber("matchNumberInput") < 1 || getNumber("matchNumberInput") > 250) {
     showElement("warning");
     showElement("transparentWarning");
     setTimeout(function () {
@@ -155,15 +155,15 @@ onEvent("TRBack", "click", function () {
 });
 onEvent("submit", "click", function () {
   comments = getText("Comments");
-  if(getChecked("checkboxDefense") == true){
-	  defense = true;
+  if (getChecked("checkboxDefense") == true) {
+    defense = true;
   } else {
-	  defense = false;
+    defense = false;
   }
-  if(getChecked("checkboxNotMove") == true){
-	  notMove = true;
+  if (getChecked("checkboxNotMove") == true) {
+    notMove = true;
   } else {
-	  notMove = false;
+    notMove = false;
   }
   var autoPoints = 6 * autoHighCone + 6 * autoHighCube + 4 * autoMidCone + 4 * autoMidCube + 3 * autoLowCone + 3 * autoLowCube;
   var teleopPoints = 5 * teleopHighCone + 5 * teleopHighCube + 3 * teleopMidCone + 3 * teleopMidCube + 2 * teleopLowCone + 2 * teleopLowCube;
