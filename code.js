@@ -35,7 +35,7 @@ var data = new Array(length);
 for (var i = 0; i < height; i++) {
   data[i] = new Array(length);
 }
-var list = ["teamNumber", "scouterName", "matchNumber", "autoMobility", "autoDock", "autoEngage", "autoCone", "autoCube", "teleopPark", "teleopDock", "teleopEngage", "teleopCone", "teleopCube", "autoHighCone", "autoHighCube", "autoMidCone", "autoMidCube", "autoLowCone", "autoLowCube", "teleopHighCone", "teleopHighCube", "teleopMidCone", "teleopMidCube", "teleopLowCone", "teleopLowCube", "comments", "Auto Points", "Teleop Points", "points"];
+var list = ["teamNumber", "scouterName", "matchNumber", "autoMobility", "autoDock", "autoEngage", "autoCone", "autoCube", "teleopPark", "teleopDock", "teleopEngage", "teleopCone", "teleopCube", "autoHighCone", "autoHighCube", "autoMidCone", "autoMidCube", "autoLowCone", "autoLowCube", "teleopHighCone", "teleopHighCube", "teleopMidCone", "teleopMidCube", "teleopLowCone", "teleopLowCube", "comments", "Auto Points", "Teleop Points", "points", "Defense", "Did not move"];
 for (var i = 0; i < list.length; i++) {
   data[0][i] = list[i];
 }
@@ -50,7 +50,7 @@ onEvent("continueHome", "click", function () {
   teamNumber = getNumber("teamNumberInput");
   scouterName = getText("scouterNameInput");
   matchNumber = getNumber("matchNumberInput");
-  if (getText("teamNumberInput") == "" || getText("scouterNameInput") == "" || getText("matchNumberInput") == "" || teamNumber > 9999 || teamNumber < 1 || matchNumber < 1 || matchNumber > 250) {
+  if (getText("teamNumberInput") == "" || getText("scouterNameInput") == "" || getText("matchNumberInput") == "" || getNumber("teamNumberInput") > 9999 || getNumber("teamNumberInput") < 1 || getNumber("matchNumberInput") < 1 || getNumber("matchNumberInput") > 250 ) {
     showElement("warning");
     showElement("transparentWarning");
     setTimeout(function () {
@@ -165,30 +165,30 @@ onEvent("submit", "click", function () {
   } else {
 	  notMove = false;
   }
-  if (autoMobility == true) {
-    points = points + 3;
-  }
-  if (autoDock == true) {
-    points = points + 8;
-  }
-  if (autoEngage == true && autoDock == true) {
-    points = points + 4;
-  } else if (autoEngage == true) {
-    points = points + 12;
-  }
-  if (teleopPark == true) {
-    points = points + 2;
-  }
-  if (teleopDock == true) {
-    points = points + 8;
-  }
-  if (teleopEngage == true && teleopDock == true) {
-    points = points + 4;
-  } else if (autoEngage == true) {
-    points = points + 10;
-  }
   var autoPoints = 6 * autoHighCone + 6 * autoHighCube + 4 * autoMidCone + 4 * autoMidCube + 3 * autoLowCone + 3 * autoLowCube;
   var teleopPoints = 5 * teleopHighCone + 5 * teleopHighCube + 3 * teleopMidCone + 3 * teleopMidCube + 2 * teleopLowCone + 2 * teleopLowCube;
+  if (autoMobility == true) {
+    autoPoints = autoPoints + 3;
+  }
+  if (autoDock == true) {
+    autoPoints = autoPoints + 8;
+  }
+  if (autoEngage == true && autoDock == true) {
+    autoPoints = autoPoints + 4;
+  } else if (autoEngage == true) {
+    autoPoints = autoPoints + 12;
+  }
+  if (teleopPark == true) {
+    teleopPoints = teleopPoints + 2;
+  }
+  if (teleopDock == true) {
+    teleopPoints = teleopPoints + 6;
+  }
+  if (teleopEngage == true && teleopDock == true) {
+    teleopPoints = teleopPoints + 4;
+  } else if (autoEngage == true) {
+    teleopPoints = teleopPoints + 10;
+  }
   points = autoPoints + teleopPoints;
   sessionData[0] = teamNumber;
   sessionData[1] = scouterName;
@@ -324,6 +324,8 @@ onEvent("submit", "click", function () {
   setChecked("checkboxTRDocked", false);
   setChecked("checkboxTLEngaged", false);
   setChecked("checkboxTREngaged", false);
+  setChecked("checkboxDefense", false);
+  setChecked("checkboxNotMove", false);
   //reset dropdowns
   setText("dropdownALTTR", "None");
   setText("dropdownALTMR", "None");
