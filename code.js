@@ -24,7 +24,6 @@ var teleopMidCone = 0;
 var teleopMidCube = 0;
 var teleopLowCone = 0;
 var teleopLowCube = 0;
-var comments = "";
 var points = 0;
 var defense = false;
 var notMove = false;
@@ -65,7 +64,7 @@ onEvent("continueTeleopRight", "click", function () {
   } else if (getChecked("checkboxTRPark") == false) {
     teleopPark = false;
   }
-  if (getChecked("checkboxTRDocked") == true) {
+  if (getChecked("checkboxTRDocked") == true) { 
     teleopDock = true;
   } else if (getChecked("checkboxTRDocked") == false) {
     teleopDock = false;
@@ -154,7 +153,7 @@ onEvent("TRBack", "click", function () {
   setScreen("autoRight");
 });
 onEvent("submit", "click", function () {
-  comments = getText("Comments");
+  var comments = getText("Comments");
   if (getChecked("checkboxDefense") == true) {
     defense = true;
   } else {
