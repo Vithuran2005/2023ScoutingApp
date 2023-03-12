@@ -66,11 +66,13 @@ onEvent("continueTeleopRight", "click", function () {
   }
   if (getChecked("checkboxTRDocked") == true) {
     teleopDock = true;
+	teleopPark = false;
   } else if (getChecked("checkboxTRDocked") == false) {
     teleopDock = false;
   }
   if (getChecked("checkboxTREngaged") == true) {
     teleopEngage = true;
+	teleopPark = false;
   } else if (getChecked("checkboxTREngaged") == false) {
     teleopEngage = false;
   }
@@ -85,11 +87,13 @@ onEvent("continueTeleopLeft", "click", function () {
   }
   if (getChecked("checkboxTLDocked") == true) {
     teleopDock = true;
+	teleopPark = false;
   } else if (getChecked("checkboxTLDocked") == false) {
     teleopDock = false;
   }
   if (getChecked("checkboxTLEngaged") == true) {
     teleopEngage = true;
+	teleopPark = false;
   } else if (getChecked("checkboxTLEngaged") == false) {
     teleopEngage = false;
   }
@@ -214,12 +218,12 @@ onEvent("submit", "click", function () {
   sessionData[22] = teleopMidCube;
   sessionData[23] = teleopLowCone;
   sessionData[24] = teleopLowCube;
-  sessionData[25] = comments;
-  sessionData[26] = autoPoints;
-  sessionData[27] = teleopPoints;
-  sessionData[28] = points;
-  sessionData[29] = defense;
-  sessionData[30] = notMove;
+  sessionData[25] = autoPoints;
+  sessionData[26] = teleopPoints;
+  sessionData[27] = points;
+  sessionData[28] = defense;
+  sessionData[29] = notMove;
+  sessionData[30] = comments;
   for (var i = 0; i < sessionData.length; i++) {
     data[counter][i] = sessionData[i];
   }
