@@ -64,7 +64,7 @@ onEvent("continueTeleopRight", "click", function () {
   } else if (getChecked("checkboxTRPark") == false) {
     teleopPark = false;
   }
-  if (getChecked("checkboxTRDocked") == true) { 
+  if (getChecked("checkboxTRDocked") == true) {
     teleopDock = true;
   } else if (getChecked("checkboxTRDocked") == false) {
     teleopDock = false;
@@ -447,34 +447,34 @@ onEvent("submit", "click", function () {
   hideElement("buttonTRBMM");
   hideElement("buttonTRBBM");
   //reset variables
-	var teamNumber = 0;
-	var scouterName = "";
-var matchNumber = 0;
-var autoMobility = false;
-var autoDock = false;
-var autoEngage = false;
-var autoCone = 0;
-var autoCube = 0;
-var teleopPark = false;
-var teleopDock = false;
-var teleopEngage = false;
-var teleopCone = 0;
-var teleopCube = 0;
-var autoHighCone = 0;
-var autoHighCube = 0;
-var autoMidCone = 0;
-var autoMidCube = 0;
-var autoLowCone = 0;
-var autoLowCube = 0;
-var teleopHighCone = 0;
-var teleopHighCube = 0;
-var teleopMidCone = 0;
-var teleopMidCube = 0;
-var teleopLowCone = 0;
-var teleopLowCube = 0;
-var points = 0;
-var defense = false;
-var notMove = false;
+  teamNumber = 0;
+  scouterName = "";
+  matchNumber = 0;
+  autoMobility = false;
+  autoDock = false;
+  autoEngage = false;
+  autoCone = 0;
+  autoCube = 0;
+  teleopPark = false;
+  teleopDock = false;
+  teleopEngage = false;
+  teleopCone = 0;
+  teleopCube = 0;
+  autoHighCone = 0;
+  autoHighCube = 0;
+  autoMidCone = 0;
+  autoMidCube = 0;
+  autoLowCone = 0;
+  autoLowCube = 0;
+  teleopHighCone = 0;
+  teleopHighCube = 0;
+  teleopMidCone = 0;
+  teleopMidCube = 0;
+  teleopLowCone = 0;
+  teleopLowCube = 0;
+  points = 0;
+  defense = false;
+  notMove = false;
 });
 //checkbox auto left
 onEvent("checkboxALTTL", "click", function () {
