@@ -34,7 +34,7 @@ var data = new Array(length);
 for (var i = 0; i < height; i++) {
   data[i] = new Array(length);
 }
-var list = ["teamNumber", "scouterName", "matchNumber", "autoMobility", "autoDock", "autoEngage", "autoCone", "autoCube", "teleopPark", "teleopDock", "teleopEngage", "teleopCone", "teleopCube", "autoHighCone", "autoHighCube", "autoMidCone", "autoMidCube", "autoLowCone", "autoLowCube", "teleopHighCone", "teleopHighCube", "teleopMidCone", "teleopMidCube", "teleopLowCone", "teleopLowCube", "comments", "Auto Points", "Teleop Points", "points", "Defense", "Did not move"];
+var list = ["teamNumber", "scouterName", "matchNumber", "autoMobility", "autoDock", "autoEngage", "autoCone", "autoCube", "teleopPark", "teleopDock", "teleopEngage", "teleopCone", "teleopCube", "autoHighCone", "autoHighCube", "autoMidCone", "autoMidCube", "autoLowCone", "autoLowCube", "teleopHighCone", "teleopHighCube", "teleopMidCone", "teleopMidCube", "teleopLowCone", "teleopLowCube", "Auto Points", "Teleop Points", "points", "Defense", "Did not move", "comments"];
 for (var i = 0; i < list.length; i++) {
   data[0][i] = list[i];
 }
@@ -66,13 +66,13 @@ onEvent("continueTeleopRight", "click", function () {
   }
   if (getChecked("checkboxTRDocked") == true) {
     teleopDock = true;
-	teleopPark = false;
+    teleopPark = false;
   } else if (getChecked("checkboxTRDocked") == false) {
     teleopDock = false;
   }
   if (getChecked("checkboxTREngaged") == true) {
     teleopEngage = true;
-	teleopPark = false;
+    teleopPark = false;
   } else if (getChecked("checkboxTREngaged") == false) {
     teleopEngage = false;
   }
@@ -87,13 +87,13 @@ onEvent("continueTeleopLeft", "click", function () {
   }
   if (getChecked("checkboxTLDocked") == true) {
     teleopDock = true;
-	teleopPark = false;
+    teleopPark = false;
   } else if (getChecked("checkboxTLDocked") == false) {
     teleopDock = false;
   }
   if (getChecked("checkboxTLEngaged") == true) {
     teleopEngage = true;
-	teleopPark = false;
+    teleopPark = false;
   } else if (getChecked("checkboxTLEngaged") == false) {
     teleopEngage = false;
   }
@@ -235,7 +235,11 @@ onEvent("submit", "click", function () {
   });
   var datetime = new Date();
   var time = datetime.toISOString();
-  createDownloadLink("#export", csvContent, "scouting_data " + time + ".csv");
+  var filename = "scouting_data " + scouterName + " " + time + ".csv";
+  if (counter % 5 == 0) {
+	  exportToCsv(filename, csvContent);
+  }
+  createDownloadLink("#export", csvContent, filename);
   counter++;
   setScreen("home");
   //reseting checkboxes AL
@@ -329,46 +333,126 @@ onEvent("submit", "click", function () {
   setChecked("checkboxTREngaged", false);
   setChecked("checkboxDefense", false);
   setChecked("checkboxNotMove", false);
-  //reset dropdowns
-  setText("dropdownALTTR", "None");
-  setText("dropdownALTMR", "None");
-  setText("dropdownALTBR", "None");
-  setText("dropdownALMTR", "None");
-  setText("dropdownALMMR", "None");
-  setText("dropdownALMBR", "None");
-  setText("dropdownALBTR", "None");
-  setText("dropdownALBMR", "None");
-  setText("dropdownALBBR", "None");
-  //AR dropdown
-  setText("dropdownARTTL", "None");
-  setText("dropdownARTML", "None");
-  setText("dropdownARTBL", "None");
-  setText("dropdownARMTL", "None");
-  setText("dropdownARMML", "None");
-  setText("dropdownARMBL", "None");
-  setText("dropdownARBTL", "None");
-  setText("dropdownARBML", "None");
-  setText("dropdownARBBL", "None");
-  //TL dropdown
-  setText("dropdownTLTTR", "None");
-  setText("dropdownTLTMR", "None");
-  setText("dropdownTLTBR", "None");
-  setText("dropdownTLMTR", "None");
-  setText("dropdownTLMMR", "None");
-  setText("dropdownTLMBR", "None");
-  setText("dropdownTLBTR", "None");
-  setText("dropdownTLBMR", "None");
-  setText("dropdownTLBBR", "None");
-  //TR dropdown
-  setText("dropdownTRTTL", "None");
-  setText("dropdownTRTML", "None");
-  setText("dropdownTRTBL", "None");
-  setText("dropdownTRMTL", "None");
-  setText("dropdownTRMML", "None");
-  setText("dropdownTRMBL", "None");
-  setText("dropdownTRBTL", "None");
-  setText("dropdownTRBML", "None");
-  setText("dropdownTRBBL", "None");
+  //reset buttons hybrid cones
+  hideElement("buttonConeALTTR");
+  hideElement("buttonConeALTMR");
+  hideElement("buttonConeALTBR");
+  hideElement("buttonConeALMTR");
+  hideElement("buttonConeALMMR");
+  hideElement("buttonConeALMBR");
+  hideElement("buttonConeALBTR");
+  hideElement("buttonConeALBMR");
+  hideElement("buttonConeALBBR");
+  //AR button
+  hideElement("buttonConeARTTL");
+  hideElement("buttonConeARTML");
+  hideElement("buttonConeARTBL");
+  hideElement("buttonConeARMTL");
+  hideElement("buttonConeARMML");
+  hideElement("buttonConeARMBL");
+  hideElement("buttonConeARBTL");
+  hideElement("buttonConeARBML");
+  hideElement("buttonConeARBBL");
+  //TL button
+  hideElement("buttonConeTLTTR");
+  hideElement("buttonConeTLTMR");
+  hideElement("buttonConeTLTBR");
+  hideElement("buttonConeTLMTR");
+  hideElement("buttonConeTLMMR");
+  hideElement("buttonConeTLMBR");
+  hideElement("buttonConeTLBTR");
+  hideElement("buttonConeTLBMR");
+  hideElement("buttonConeTLBBR");
+  //TR button
+  hideElement("buttonConeTRTTL");
+  hideElement("buttonConeTRTML");
+  hideElement("buttonConeTRTBL");
+  hideElement("buttonConeTRMTL");
+  hideElement("buttonConeTRMML");
+  hideElement("buttonConeTRMBL");
+  hideElement("buttonConeTRBTL");
+  hideElement("buttonConeTRBML");
+  hideElement("buttonConeTRBBL");
+  //reset hybrid cubes
+  hideElement("buttonCubeALTTR");
+  hideElement("buttonCubeALTMR");
+  hideElement("buttonCubeALTBR");
+  hideElement("buttonCubeALMTR");
+  hideElement("buttonCubeALMMR");
+  hideElement("buttonCubeALMBR");
+  hideElement("buttonCubeALBTR");
+  hideElement("buttonCubeALBMR");
+  hideElement("buttonCubeALBBR");
+  //AR button
+  hideElement("buttonCubeARTTL");
+  hideElement("buttonCubeARTML");
+  hideElement("buttonCubeARTBL");
+  hideElement("buttonCubeARMTL");
+  hideElement("buttonCubeARMML");
+  hideElement("buttonCubeARMBL");
+  hideElement("buttonCubeARBTL");
+  hideElement("buttonCubeARBML");
+  hideElement("buttonCubeARBBL");
+  //TL button
+  hideElement("buttonCubeTLTTR");
+  hideElement("buttonCubeTLTMR");
+  hideElement("buttonCubeTLTBR");
+  hideElement("buttonCubeTLMTR");
+  hideElement("buttonCubeTLMMR");
+  hideElement("buttonCubeTLMBR");
+  hideElement("buttonCubeTLBTR");
+  hideElement("buttonCubeTLBMR");
+  hideElement("buttonCubeTLBBR");
+  //TR button
+  hideElement("buttonCubeTRTTL");
+  hideElement("buttonCubeTRTML");
+  hideElement("buttonCubeTRTBL");
+  hideElement("buttonCubeTRMTL");
+  hideElement("buttonCubeTRMML");
+  hideElement("buttonCubeTRMBL");
+  hideElement("buttonCubeTRBTL");
+  hideElement("buttonCubeTRBML");
+  hideElement("buttonCubeTRBBL");
+  //show basic buttons
+  showElement("buttonALTTR");
+  showElement("buttonALTMR");
+  showElement("buttonALTBR");
+  showElement("buttonALMTR");
+  showElement("buttonALMMR");
+  showElement("buttonALMBR");
+  showElement("buttonALBTR");
+  showElement("buttonALBMR");
+  showElement("buttonALBBR");
+  //AR button
+  showElement("buttonCubeARTTL");
+  showElement("buttonCubeARTML");
+  showElement("buttonCubeARTBL");
+  showElement("buttonCubeARMTL");
+  showElement("buttonCubeARMML");
+  showElement("buttonCubeARMBL");
+  showElement("buttonCubeARBTL");
+  showElement("buttonCubeARBML");
+  showElement("buttonCubeARBBL");
+  //TL button
+  showElement("buttonCubeTLTTR");
+  showElement("buttonCubeTLTMR");
+  showElement("buttonCubeTLTBR");
+  showElement("buttonCubeTLMTR");
+  showElement("buttonCubeTLMMR");
+  showElement("buttonCubeTLMBR");
+  showElement("buttonCubeTLBTR");
+  showElement("buttonCubeTLBMR");
+  showElement("buttonCubeTLBBR");
+  //TR button
+  showElement("buttonCubeTRTTL");
+  showElement("buttonCubeTRTML");
+  showElement("buttonCubeTRTBL");
+  showElement("buttonCubeTRMTL");
+  showElement("buttonCubeTRMML");
+  showElement("buttonCubeTRMBL");
+  showElement("buttonCubeTRBTL");
+  showElement("buttonCubeTRBML");
+  showElement("buttonCubeTRBBL");
   //reset texts
   setText("teamNumberInput", "");
   setText("scouterNameInput", "");
@@ -1276,1087 +1360,728 @@ onEvent("buttonTRBBM", "click", function () {
   hideElement("buttonTRBBM");
   setChecked("checkboxTRBBM", false);
 })
-//auto right dropdowns
-var localValuePreviousARTTL = "None";
-onEvent("dropdownARTTL", "change", function () {
-  var localValue = getText("dropdownARTTL");
-  if (localValuePreviousARTTL != localValue) {
-    if (localValue == "Cone") {
-      autoLowCone++;
-      autoCone++;
-      if (localValuePreviousARTTL == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      autoLowCube++;
-      autoCube++;
-      if (localValuePreviousARTTL == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousARTTL == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      } else if (localValuePreviousARTTL == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    }
-  }
-  localValuePreviousARTTL = getText("dropdownARTTL");
+//button auto left
+onEvent("buttonALTTR", "click", function () {
+  autoCone++;
+  autoLowCone++;
+  showElement("buttonConeALTTR");
+  hideElement("buttonALTTR");
 });
-var localValuePreviousARTML = "None";
-onEvent("dropdownARTML", "change", function () {
-  var localValue = getText("dropdownARTML");
-  if (localValuePreviousARTML != localValue) {
-    if (localValue == "Cone") {
-      autoLowCone++;
-      autoCone++;
-      if (localValuePreviousARTML == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      autoLowCube++;
-      autoCube++;
-      if (localValuePreviousARTML == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousARTML == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      } else if (localValuePreviousARTML == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    }
-  }
-  localValuePreviousARTML = getText("dropdownARTML");
+onEvent("buttonConeALTTR", "click", function () {
+  autoCone--;
+  autoLowCone--;
+  autoCube++;
+  autoLowCube++;
+  hideElement("buttonConeALTTR");
+  showElement("buttonCubeALTTR");
 });
-var localValuePreviousARTBL = "None";
-onEvent("dropdownARTBL", "change", function () {
-  var localValue = getText("dropdownARTBL");
-  if (localValuePreviousARTBL != localValue) {
-    if (localValue == "Cone") {
-      autoLowCone++;
-      autoCone++;
-      if (localValuePreviousARTBL == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      autoLowCube++;
-      autoCube++;
-      if (localValuePreviousARTBL == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousARTBL == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      } else if (localValuePreviousARTBL == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    }
-  }
-  localValuePreviousARTBL = getText("dropdownARTBL");
+onEvent("buttonCubeALTTR", "click", function () {
+  autoCube--;
+  autoLowCube--;
+  hideElement("buttonCubeALTTR");
+  showElement("buttonALTTR");
 });
-var localValuePreviousARMTL = "None";
-onEvent("dropdownARMTL", "change", function () {
-  var localValue = getText("dropdownARMTL");
-  if (localValuePreviousARMTL != localValue) {
-    if (localValue == "Cone") {
-      autoLowCone++;
-      autoCone++;
-      if (localValuePreviousARMTL == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      autoLowCube++;
-      autoCube++;
-      if (localValuePreviousARMTL == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousARMTL == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      } else if (localValuePreviousARMTL == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    }
-  }
-  localValuePreviousARMTL = getText("dropdownARMTL");
+onEvent("buttonALTMR", "click", function () {
+  autoCone++;
+  autoLowCone++;
+  showElement("buttonConeALTMR");
+  hideElement("buttonALTMR");
 });
-var localValuePreviousARMML = "None";
-onEvent("dropdownARMML", "change", function () {
-  var localValue = getText("dropdownARMML");
-  if (localValuePreviousARMML != localValue) {
-    if (localValue == "Cone") {
-      autoLowCone++;
-      autoCone++;
-      if (localValuePreviousARMML == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      autoLowCube++;
-      autoCube++;
-      if (localValuePreviousARMML == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousARMML == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      } else if (localValuePreviousARMML == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    }
-  }
-  localValuePreviousARMML = getText("dropdownARMML");
+onEvent("buttonConeALTMR", "click", function () {
+  autoCone--;
+  autoLowCone--;
+  autoCube++;
+  autoLowCube++;
+  hideElement("buttonConeALTMR");
+  showElement("buttonCubeALTMR");
 });
-var localValuePreviousARMBL = "None";
-onEvent("dropdownARMML", "change", function () {
-  var localValue = getText("dropdownARMML");
-  if (localValuePreviousARMBL != localValue) {
-    if (localValue == "Cone") {
-      autoLowCone++;
-      autoCone++;
-      if (localValuePreviousARMBL == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      autoLowCube++;
-      autoCube++;
-      if (localValuePreviousARMBL == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousARMBL == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      } else if (localValuePreviousARMBL == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    }
-  }
-  localValuePreviousARMBL = getText("dropdownARMBL");
+onEvent("buttonCubeALTMR", "click", function () {
+  autoCube--;
+  autoLowCube--;
+  hideElement("buttonCubeALTMR");
+  showElement("buttonALTMR");
 });
-var localValuePreviousARBTL = "None";
-onEvent("dropdownARBTL", "change", function () {
-  var localValue = getText("dropdownARBTL");
-  if (localValuePreviousARBTL != localValue) {
-    if (localValue == "Cone") {
-      autoLowCone++;
-      autoCone++;
-      if (localValuePreviousARBTL == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      autoLowCube++;
-      autoCube++;
-      if (localValuePreviousARBTL == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousARBTL == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      } else if (localValuePreviousARBTL == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    }
-  }
-  localValuePreviousARBTL = getText("dropdownARBTL");
+onEvent("buttonALTBR", "click", function () {
+  autoCone++;
+  autoLowCone++;
+  showElement("buttonConeALTBR");
+  hideElement("buttonALTBR");
 });
-var localValuePreviousARBML = "None";
-onEvent("dropdownARBML", "change", function () {
-  var localValue = getText("dropdownARBML");
-  if (localValuePreviousARBML != localValue) {
-    if (localValue == "Cone") {
-      autoLowCone++;
-      autoCone++;
-      if (localValuePreviousARBML == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      autoLowCube++;
-      autoCube++;
-      if (localValuePreviousARBML == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousARBML == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      } else if (localValuePreviousARBML == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    }
-  }
-  localValuePreviousARBML = getText("dropdownARBML");
+onEvent("buttonConeALTBR", "click", function () {
+  autoCone--;
+  autoLowCone--;
+  autoCube++;
+  autoLowCube++;
+  hideElement("buttonConeALTBR");
+  showElement("buttonCubeALTBR");
 });
-var localValuePreviousARBBL = "None";
-onEvent("dropdownARBBL", "change", function () {
-  var localValue = getText("dropdownARBBL");
-  if (localValuePreviousARBBL != localValue) {
-    if (localValue == "Cone") {
-      autoLowCone++;
-      autoCone++;
-      if (localValuePreviousARBBL == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      autoLowCube++;
-      autoCube++;
-      if (localValuePreviousARBBL == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousARBBL == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      } else if (localValuePreviousARBBL == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    }
-  }
-  localValuePreviousARBBL = getText("dropdownARBBL");
+onEvent("buttonCubeALTBR", "click", function () {
+  autoCube--;
+  autoLowCube--;
+  hideElement("buttonCubeALTBR");
+  showElement("buttonALTBR");
 });
-//auto left dropdown
-var localValuePreviousALTTR = "None";
-onEvent("dropdownALTTR", "change", function () {
-  var localValue = getText("dropdownALTTR");
-  if (localValuePreviousALTTR != localValue) {
-    if (localValue == "Cone") {
-      autoLowCone++;
-      autoCone++;
-      if (localValuePreviousALTTR == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      autoLowCube++;
-      autoCube++;
-      if (localValuePreviousALTTR == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousALTTR == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      } else if (localValuePreviousALTTR == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    }
-  }
-  localValuePreviousALTTR = getText("dropdownALTTR");
+onEvent("buttonALMTR", "click", function () {
+  autoCone++;
+  autoLowCone++;
+  showElement("buttonConeALMTR");
+  hideElement("buttonALMTR");
 });
-var localValuePreviousALTMR = "None";
-onEvent("dropdownALTMR", "change", function () {
-  var localValue = getText("dropdownALTMR");
-  if (localValuePreviousALTMR != localValue) {
-    if (localValue == "Cone") {
-      autoLowCone++;
-      autoCone++;
-      if (localValuePreviousALTMR == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      autoLowCube++;
-      autoCube++;
-      if (localValuePreviousALTMR == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousALTMR == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      } else if (localValuePreviousALTMR == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    }
-  }
-  localValuePreviousALTMR = getText("dropdownALTMR");
+onEvent("buttonConeALMTR", "click", function () {
+  autoCone--;
+  autoLowCone--;
+  autoCube++;
+  autoLowCube++;
+  hideElement("buttonConeALMTR");
+  showElement("buttonCubeALMTR");
 });
-var localValuePreviousALTBR = "None";
-onEvent("dropdownALTBR", "change", function () {
-  var localValue = getText("dropdownALTBR");
-  if (localValuePreviousALTBR != localValue) {
-    if (localValue == "Cone") {
-      autoLowCone++;
-      autoCone++;
-      if (localValuePreviousALTBR == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      autoLowCube++;
-      autoCube++;
-      if (localValuePreviousALTBR == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousALTBR == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      } else if (localValuePreviousALTBR == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    }
-  }
-  localValuePreviousALTBR = getText("dropdownALTBR");
+onEvent("buttonCubeALMTR", "click", function () {
+  autoCube--;
+  autoLowCube--;
+  hideElement("buttonCubeALMTR");
+  showElement("buttonALMTR");
 });
-var localValuePreviousALMTR = "None";
-onEvent("dropdownALMTR", "change", function () {
-  var localValue = getText("dropdownALMTR");
-  if (localValuePreviousALMTR != localValue) {
-    if (localValue == "Cone") {
-      autoLowCone++;
-      autoCone++;
-      if (localValuePreviousALMTR == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      autoLowCube++;
-      autoCube++;
-      if (localValuePreviousALMTR == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousALMTR == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      } else if (localValuePreviousALMTR == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    }
-  }
-  localValuePreviousALMTR = getText("dropdownALMTR");
+onEvent("buttonALMMR", "click", function () {
+  autoCone++;
+  autoLowCone++;
+  showElement("buttonConeALMMR");
+  hideElement("buttonALMMR");
 });
-var localValuePreviousALMMR = "None";
-onEvent("dropdownALMMR", "change", function () {
-  var localValue = getText("dropdownALMMR");
-  if (localValuePreviousALMMR != localValue) {
-    if (localValue == "Cone") {
-      autoLowCone++;
-      autoCone++;
-      if (localValuePreviousALMMR == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      autoLowCube++;
-      autoCube++;
-      if (localValuePreviousALMMR == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousALMMR == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      } else if (localValuePreviousALMMR == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    }
-  }
-  localValuePreviousALMMR = getText("dropdownALMMR");
+onEvent("buttonConeALMMR", "click", function () {
+  autoCone--;
+  autoLowCone--;
+  autoCube++;
+  autoLowCube++;
+  hideElement("buttonConeALMMR");
+  showElement("buttonCubeALMMR");
 });
-var localValuePreviousALMBR = "None";
-onEvent("dropdownALMMR", "change", function () {
-  var localValue = getText("dropdownALMMR");
-  if (localValuePreviousALMBR != localValue) {
-    if (localValue == "Cone") {
-      autoLowCone++;
-      autoCone++;
-      if (localValuePreviousALMBR == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      autoLowCube++;
-      autoCube++;
-      if (localValuePreviousALMBR == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousALMBR == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      } else if (localValuePreviousALMBR == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    }
-  }
-  localValuePreviousALMBR = getText("dropdownALMBR");
+onEvent("buttonCubeALMMR", "click", function () {
+  autoCube--;
+  autoLowCube--;
+  hideElement("buttonCubeALMMR");
+  showElement("buttonALMMR");
 });
-var localValuePreviousALBTR = "None";
-onEvent("dropdownALBTR", "change", function () {
-  var localValue = getText("dropdownALBTR");
-  if (localValuePreviousALBTR != localValue) {
-    if (localValue == "Cone") {
-      autoLowCone++;
-      autoCone++;
-      if (localValuePreviousALBTR == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      autoLowCube++;
-      autoCube++;
-      if (localValuePreviousALBTR == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousALBTR == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      } else if (localValuePreviousALBTR == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    }
-  }
-  localValuePreviousALBTR = getText("dropdownALBTR");
+onEvent("buttonALMBR", "click", function () {
+  autoCone++;
+  autoLowCone++;
+  showElement("buttonConeALMBR");
+  hideElement("buttonALMBR");
 });
-var localValuePreviousALBMR = "None";
-onEvent("dropdownALBMR", "change", function () {
-  var localValue = getText("dropdownALBMR");
-  if (localValuePreviousALBMR != localValue) {
-    if (localValue == "Cone") {
-      autoLowCone++;
-      autoCone++;
-      if (localValuePreviousALBMR == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      autoLowCube++;
-      autoCube++;
-      if (localValuePreviousALBMR == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousALBMR == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      } else if (localValuePreviousALBMR == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    }
-  }
-  localValuePreviousALBMR = getText("dropdownALBMR");
+onEvent("buttonConeALMBR", "click", function () {
+  autoCone--;
+  autoLowCone--;
+  autoCube++;
+  autoLowCube++;
+  hideElement("buttonConeALMBR");
+  showElement("buttonCubeALMBR");
 });
-var localValuePreviousALBBR = "None";
-onEvent("dropdownALBBR", "change", function () {
-  var localValue = getText("dropdownALBBR");
-  if (localValuePreviousALBBR != localValue) {
-    if (localValue == "Cone") {
-      autoLowCone++;
-      autoCone++;
-      if (localValuePreviousALBBR == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      autoLowCube++;
-      autoCube++;
-      if (localValuePreviousALBBR == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousALBBR == "Cube") {
-        autoCube--;
-        autoLowCube--;
-      } else if (localValuePreviousALBBR == "Cone") {
-        autoCone--;
-        autoLowCone--;
-      }
-    }
-  }
-  localValuePreviousALBBR = getText("dropdownALBBR");
+onEvent("buttonCubeALMBR", "click", function () {
+  autoCube--;
+  autoLowCube--;
+  hideElement("buttonCubeALMBR");
+  showElement("buttonALMBR");
 });
-//teleop right dropdowns
-var localValuePreviousTRTTL = "None";
-onEvent("dropdownTRTTL", "change", function () {
-  var localValue = getText("dropdownTRTTL");
-  if (localValuePreviousTRTTL != localValue) {
-    if (localValue == "Cone") {
-      teleopLowCone++;
-      teleopCone++;
-      if (localValuePreviousTRTTL == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      teleopLowCube++;
-      teleopCube++;
-      if (localValuePreviousTRTTL == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousTRTTL == "Cube") {
-        teleopCube--;
-        teleopowCube--;
-      } else if (localValuePreviousTRTTL == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    }
-  }
-  localValuePreviousTRTTL = getText("dropdownTRTTL");
+onEvent("buttonALBTR", "click", function () {
+  autoCone++;
+  autoLowCone++;
+  showElement("buttonConeALBTR");
+  hideElement("buttonALBTR");
 });
-var localValuePreviousTRTML = "None";
-onEvent("dropdownTRTML", "change", function () {
-  var localValue = getText("dropdownTRTML");
-  if (localValuePreviousTRTML != localValue) {
-    if (localValue == "Cone") {
-      teleopLowCone++;
-      teleopCone++;
-      if (localValuePreviousTRTML == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      teleopLowCube++;
-      teleopCube++;
-      if (localValuePreviousTRTML == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousTRTML == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      } else if (localValuePreviousTRTML == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    }
-  }
-  localValuePreviousTRTML = getText("dropdownTRTML");
+onEvent("buttonConeALBTR", "click", function () {
+  autoCone--;
+  autoLowCone--;
+  autoCube++;
+  autoLowCube++;
+  hideElement("buttonConeALBTR");
+  showElement("buttonCubeALBTR");
 });
-var localValuePreviousTRTBL = "None";
-onEvent("dropdownTRTBL", "change", function () {
-  var localValue = getText("dropdownTRTBL");
-  if (localValuePreviousTRTBL != localValue) {
-    if (localValue == "Cone") {
-      teleopLowCone++;
-      teleopCone++;
-      if (localValuePreviousTRTBL == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      teleopLowCube++;
-      teleopCube++;
-      if (localValuePreviousTRTBL == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousTRTBL == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      } else if (localValuePreviousTRTBL == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    }
-  }
-  localValuePreviousTRTBL = getText("dropdownTRTBL");
+onEvent("buttonCubeALBTR", "click", function () {
+  autoCube--;
+  autoLowCube--;
+  hideElement("buttonCubeALBTR");
+  showElement("buttonALBTR");
 });
-var localValuePreviousTRMTL = "None";
-onEvent("dropdownTRMTL", "change", function () {
-  var localValue = getText("dropdownTRMTL");
-  if (localValuePreviousTRMTL != localValue) {
-    if (localValue == "Cone") {
-      teleopLowCone++;
-      teleopCone++;
-      if (localValuePreviousTRMTL == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      teleopLowCube++;
-      teleopCube++;
-      if (localValuePreviousTRMTL == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousTRMTL == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      } else if (localValuePreviousTRMTL == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    }
-  }
-  localValuePreviousTRMTL = getText("dropdownTRMTL");
+onEvent("buttonALBMR", "click", function () {
+  autoCone++;
+  autoLowCone++;
+  showElement("buttonConeALBMR");
+  hideElement("buttonALBMR");
 });
-var localValuePreviousTRMML = "None";
-onEvent("dropdownTRMML", "change", function () {
-  var localValue = getText("dropdownTRMML");
-  if (localValuePreviousTRMML != localValue) {
-    if (localValue == "Cone") {
-      teleopLowCone++;
-      teleopCone++;
-      if (localValuePreviousTRMML == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      teleopLowCube++;
-      teleopCube++;
-      if (localValuePreviousTRMML == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousTRMML == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      } else if (localValuePreviousTRMML == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    }
-  }
-  localValuePreviousTRMML = getText("dropdownTRMML");
+onEvent("buttonConeALBMR", "click", function () {
+  autoCone--;
+  autoLowCone--;
+  autoCube++;
+  autoLowCube++;
+  hideElement("buttonConeALBMR");
+  showElement("buttonCubeALBMR");
 });
-var localValuePreviousTRMBL = "None";
-onEvent("dropdownTRMML", "change", function () {
-  var localValue = getText("dropdownTRMML");
-  if (localValuePreviousTRMBL != localValue) {
-    if (localValue == "Cone") {
-      teleopLowCone++;
-      teleopCone++;
-      if (localValuePreviousTRMBL == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      teleopLowCube++;
-      teleopCube++;
-      if (localValuePreviousTRMBL == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousTRMBL == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      } else if (localValuePreviousTRMBL == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    }
-  }
-  localValuePreviousTRMBL = getText("dropdownTRMBL");
+onEvent("buttonCubeALBMR", "click", function () {
+  autoCube--;
+  autoLowCube--;
+  hideElement("buttonCubeALBMR");
+  showElement("buttonALBMR");
 });
-var localValuePreviousTRBTL = "None";
-onEvent("dropdownTRBTL", "change", function () {
-  var localValue = getText("dropdownTRBTL");
-  if (localValuePreviousTRBTL != localValue) {
-    if (localValue == "Cone") {
-      teleopLowCone++;
-      teleopCone++;
-      if (localValuePreviousTRBTL == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      teleopLowCube++;
-      teleopCube++;
-      if (localValuePreviousTRBTL == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousTRBTL == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      } else if (localValuePreviousTRBTL == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    }
-  }
-  localValuePreviousTRBTL = getText("dropdownTRBTL");
+onEvent("buttonALBBR", "click", function () {
+  autoCone++;
+  autoLowCone++;
+  showElement("buttonConeALBBR");
+  hideElement("buttonALBBR");
 });
-var localValuePreviousTRBML = "None";
-onEvent("dropdownTRBML", "change", function () {
-  var localValue = getText("dropdownTRBML");
-  if (localValuePreviousTRBML != localValue) {
-    if (localValue == "Cone") {
-      teleopLowCone++;
-      teleopCone++;
-      if (localValuePreviousTRBML == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      teleopLowCube++;
-      teleopCube++;
-      if (localValuePreviousTRBML == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousTRBML == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      } else if (localValuePreviousTRBML == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    }
-  }
-  localValuePreviousTRBML = getText("dropdownTRBML");
+onEvent("buttonConeALBBR", "click", function () {
+  autoCone--;
+  autoLowCone--;
+  autoCube++;
+  autoLowCube++;
+  hideElement("buttonConeALBBR");
+  showElement("buttonCubeALBBR");
 });
-var localValuePreviousTRBBL = "None";
-onEvent("dropdownTRBBL", "change", function () {
-  var localValue = getText("dropdownTRBBL");
-  if (localValuePreviousTRBBL != localValue) {
-    if (localValue == "Cone") {
-      teleopLowCone++;
-      teleopCone++;
-      if (localValuePreviousTRBBL == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      teleopLowCube++;
-      teleopCube++;
-      if (localValuePreviousTRBBL == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousTRBBL == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      } else if (localValuePreviousTRBBL == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    }
-  }
-  localValuePreviousTRBBL = getText("dropdownTRBBL");
+onEvent("buttonCubeALBBR", "click", function () {
+  autoCube--;
+  autoLowCube--;
+  hideElement("buttonCubeALBBR");
+  showElement("buttonALBBR");
 });
-//teleop left dropdown
-var localValuePreviousTLTTR = "None";
-onEvent("dropdownTLTTR", "change", function () {
-  var localValue = getText("dropdownTLTTR");
-  if (localValuePreviousTLTTR != localValue) {
-    if (localValue == "Cone") {
-      teleopLowCone++;
-      teleopCone++;
-      if (localValuePreviousTLTTR == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      teleopLowCube++;
-      teleopCube++;
-      if (localValuePreviousTLTTR == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousTLTTR == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      } else if (localValuePreviousTLTTR == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    }
-  }
-  localValuePreviousTLTTR = getText("dropdownTLTTR");
+//button auto right
+onEvent("buttonARTTL", "click", function () {
+  autoCone++;
+  autoLowCone++;
+  showElement("buttonConeARTTL");
+  hideElement("buttonARTTL");
 });
-var localValuePreviousTLTMR = "None";
-onEvent("dropdownTLTMR", "change", function () {
-  var localValue = getText("dropdownTLTMR");
-  if (localValuePreviousTLTMR != localValue) {
-    if (localValue == "Cone") {
-      teleopLowCone++;
-      teleopCone++;
-      if (localValuePreviousTLTMR == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      teleopLowCube++;
-      teleopCube++;
-      if (localValuePreviousTLTMR == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousTLTMR == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      } else if (localValuePreviousTLTMR == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    }
-  }
-  localValuePreviousTLTMR = getText("dropdownTLTMR");
+onEvent("buttonConeARTTL", "click", function () {
+  autoCone--;
+  autoLowCone--;
+  autoCube++;
+  autoLowCube++;
+  hideElement("buttonConeARTTL");
+  showElement("buttonCubeARTTL");
 });
-var localValuePreviousTLTBR = "None";
-onEvent("dropdownTLTBR", "change", function () {
-  var localValue = getText("dropdownTLTBR");
-  if (localValuePreviousTLTBR != localValue) {
-    if (localValue == "Cone") {
-      teleopLowCone++;
-      teleopCone++;
-      if (localValuePreviousTLTBR == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      teleopLowCube++;
-      teleopCube++;
-      if (localValuePreviousTLTBR == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousTLTBR == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      } else if (localValuePreviousTLTBR == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    }
-  }
-  localValuePreviousTLTBR = getText("dropdownTLTBR");
+onEvent("buttonCubeARTTL", "click", function () {
+  autoCube--;
+  autoLowCube--;
+  hideElement("buttonCubeARTTL");
+  showElement("buttonARTTL");
 });
-var localValuePreviousTLMTR = "None";
-onEvent("dropdownTLMTR", "change", function () {
-  var localValue = getText("dropdownTLMTR");
-  if (localValuePreviousTLMTR != localValue) {
-    if (localValue == "Cone") {
-      teleopLowCone++;
-      teleopCone++;
-      if (localValuePreviousTLMTR == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      teleopLowCube++;
-      teleopCube++;
-      if (localValuePreviousTLMTR == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousTLMTR == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      } else if (localValuePreviousTLMTR == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    }
-  }
-  localValuePreviousTLMTR = getText("dropdownTLMTR");
+onEvent("buttonARTML", "click", function () {
+  autoCone++;
+  autoLowCone++;
+  showElement("buttonConeARTML");
+  hideElement("buttonARTML");
 });
-var localValuePreviousTLMMR = "None";
-onEvent("dropdownTLMMR", "change", function () {
-  var localValue = getText("dropdownTLMMR");
-  if (localValuePreviousTLMMR != localValue) {
-    if (localValue == "Cone") {
-      teleopLowCone++;
-      teleopCone++;
-      if (localValuePreviousTLMMR == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      teleopLowCube++;
-      teleopCube++;
-      if (localValuePreviousTLMMR == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousTLMMR == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      } else if (localValuePreviousTLMMR == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    }
-  }
-  localValuePreviousTLMMR = getText("dropdownTLMMR");
+onEvent("buttonConeARTML", "click", function () {
+  autoCone--;
+  autoLowCone--;
+  autoCube++;
+  autoLowCube++;
+  hideElement("buttonConeARTML");
+  showElement("buttonCubeARTML");
 });
-var localValuePreviousTLMBR = "None";
-onEvent("dropdownTLMMR", "change", function () {
-  var localValue = getText("dropdownTLMMR");
-  if (localValuePreviousTLMBR != localValue) {
-    if (localValue == "Cone") {
-      teleopLowCone++;
-      teleopCone++;
-      if (localValuePreviousTLMBR == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      teleopLowCube++;
-      teleopCube++;
-      if (localValuePreviousTLMBR == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousTLMBR == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      } else if (localValuePreviousTLMBR == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    }
-  }
-  localValuePreviousTLMBR = getText("dropdownTLMBR");
+onEvent("buttonCubeARTML", "click", function () {
+  autoCube--;
+  autoLowCube--;
+  hideElement("buttonCubeARTML");
+  showElement("buttonARTML");
 });
-var localValuePreviousTLBTR = "None";
-onEvent("dropdownTLBTR", "change", function () {
-  var localValue = getText("dropdownTLBTR");
-  if (localValuePreviousTLBTR != localValue) {
-    if (localValue == "Cone") {
-      teleopLowCone++;
-      teleopCone++;
-      if (localValuePreviousTLBTR == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      teleopLowCube++;
-      teleopCube++;
-      if (localValuePreviousTLBTR == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousTLBTR == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      } else if (localValuePreviousTLBTR == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    }
-  }
-  localValuePreviousTLBTR = getText("dropdownTLBTR");
+onEvent("buttonARTBL", "click", function () {
+  autoCone++;
+  autoLowCone++;
+  showElement("buttonConeARTBL");
+  hideElement("buttonARTBL");
 });
-var localValuePreviousTLBMR = "None";
-onEvent("dropdownTLBMR", "change", function () {
-  var localValue = getText("dropdownTLBMR");
-  if (localValuePreviousTLBMR != localValue) {
-    if (localValue == "Cone") {
-      teleopLowCone++;
-      teleopCone++;
-      if (localValuePreviousTLBMR == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      teleopLowCube++;
-      teleopCube++;
-      if (localValuePreviousTLBMR == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousTLBMR == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      } else if (localValuePreviousTLBMR == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    }
-  }
-  localValuePreviousTLBMR = getText("dropdownTLBMR");
+onEvent("buttonConeARTBL", "click", function () {
+  autoCone--;
+  autoLowCone--;
+  autoCube++;
+  autoLowCube++;
+  hideElement("buttonConeARTBL");
+  showElement("buttonCubeARTBL");
 });
-var localValuePreviousTLBBR = "None";
-onEvent("dropdownTLBBR", "change", function () {
-  var localValue = getText("dropdownTLBBR");
-  if (localValuePreviousTLBBR != localValue) {
-    if (localValue == "Cone") {
-      teleopLowCone++;
-      teleopCone++;
-      if (localValuePreviousTLBBR == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      }
-    } else if (localValue == "Cube") {
-      teleopLowCube++;
-      teleopCube++;
-      if (localValuePreviousTLBBR == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    } else if (localValue == "None") {
-      if (localValuePreviousTLBBR == "Cube") {
-        teleopCube--;
-        teleopLowCube--;
-      } else if (localValuePreviousTLBBR == "Cone") {
-        teleopCone--;
-        teleopLowCone--;
-      }
-    }
-  }
-  localValuePreviousTLBBR = getText("dropdownTLBBR");
+onEvent("buttonCubeARTBL", "click", function () {
+  autoCube--;
+  autoLowCube--;
+  hideElement("buttonCubeARTBL");
+  showElement("buttonARTBL");
+});
+onEvent("buttonARMTL", "click", function () {
+  autoCone++;
+  autoLowCone++;
+  showElement("buttonConeARMTL");
+  hideElement("buttonARMTL");
+});
+onEvent("buttonConeARMTL", "click", function () {
+  autoCone--;
+  autoLowCone--;
+  autoCube++;
+  autoLowCube++;
+  hideElement("buttonConeARMTL");
+  showElement("buttonCubeARMTL");
+});
+onEvent("buttonCubeARMTL", "click", function () {
+  autoCube--;
+  autoLowCube--;
+  hideElement("buttonCubeARMTL");
+  showElement("buttonARMTL");
+});
+onEvent("buttonARMML", "click", function () {
+  autoCone++;
+  autoLowCone++;
+  showElement("buttonConeARMML");
+  hideElement("buttonARMML");
+});
+onEvent("buttonConeARMML", "click", function () {
+  autoCone--;
+  autoLowCone--;
+  autoCube++;
+  autoLowCube++;
+  hideElement("buttonConeARMML");
+  showElement("buttonCubeARMML");
+});
+onEvent("buttonCubeARMML", "click", function () {
+  autoCube--;
+  autoLowCube--;
+  hideElement("buttonCubeARMML");
+  showElement("buttonARMML");
+});
+onEvent("buttonARMBL", "click", function () {
+  autoCone++;
+  autoLowCone++;
+  showElement("buttonConeARMBL");
+  hideElement("buttonARMBL");
+});
+onEvent("buttonConeARMBL", "click", function () {
+  autoCone--;
+  autoLowCone--;
+  autoCube++;
+  autoLowCube++;
+  hideElement("buttonConeARMBL");
+  showElement("buttonCubeARMBL");
+});
+onEvent("buttonCubeARMBL", "click", function () {
+  autoCube--;
+  autoLowCube--;
+  hideElement("buttonCubeARMBL");
+  showElement("buttonARMBL");
+});
+onEvent("buttonARBTL", "click", function () {
+  autoCone++;
+  autoLowCone++;
+  showElement("buttonConeARBTL");
+  hideElement("buttonARBTL");
+});
+onEvent("buttonConeARBTL", "click", function () {
+  autoCone--;
+  autoLowCone--;
+  autoCube++;
+  autoLowCube++;
+  hideElement("buttonConeARBTL");
+  showElement("buttonCubeARBTL");
+});
+onEvent("buttonCubeARBTL", "click", function () {
+  autoCube--;
+  autoLowCube--;
+  hideElement("buttonCubeARBTL");
+  showElement("buttonARBTL");
+});
+onEvent("buttonARBML", "click", function () {
+  autoCone++;
+  autoLowCone++;
+  showElement("buttonConeARBML");
+  hideElement("buttonARBML");
+});
+onEvent("buttonConeARBML", "click", function () {
+  autoCone--;
+  autoLowCone--;
+  autoCube++;
+  autoLowCube++;
+  hideElement("buttonConeARBML");
+  showElement("buttonCubeARBML");
+});
+onEvent("buttonCubeARBML", "click", function () {
+  autoCube--;
+  autoLowCube--;
+  hideElement("buttonCubeARBML");
+  showElement("buttonARBML");
+});
+onEvent("buttonARBBL", "click", function () {
+  autoCone++;
+  autoLowCone++;
+  showElement("buttonConeARBBL");
+  hideElement("buttonARBBL");
+});
+onEvent("buttonConeARBBL", "click", function () {
+  autoCone--;
+  autoLowCone--;
+  autoCube++;
+  autoLowCube++;
+  hideElement("buttonConeARBBL");
+  showElement("buttonCubeARBBL");
+});
+onEvent("buttonCubeARBBL", "click", function () {
+  autoCube--;
+  autoLowCube--;
+  hideElement("buttonCubeARBBL");
+  showElement("buttonARBBL");
+});
+//teleop left
+//button teleop left
+onEvent("buttonTLTTR", "click", function () {
+  teleopCone++;
+  teleopLowCone++;
+  showElement("buttonConeTLTTR");
+  hideElement("buttonTLTTR");
+});
+onEvent("buttonConeTLTTR", "click", function () {
+  teleopCone--;
+  teleopLowCone--;
+  teleopCube++;
+  teleopLowCube++;
+  hideElement("buttonConeTLTTR");
+  showElement("buttonCubeTLTTR");
+});
+onEvent("buttonCubeTLTTR", "click", function () {
+  teleopCube--;
+  teleopLowCube--;
+  hideElement("buttonCubeTLTTR");
+  showElement("buttonTLTTR");
+});
+onEvent("buttonTLTMR", "click", function () {
+  teleopCone++;
+  teleopLowCone++;
+  showElement("buttonConeTLTMR");
+  hideElement("buttonTLTMR");
+});
+onEvent("buttonConeTLTMR", "click", function () {
+  teleopCone--;
+  teleopLowCone--;
+  teleopCube++;
+  teleopLowCube++;
+  hideElement("buttonConeTLTMR");
+  showElement("buttonCubeTLTMR");
+});
+onEvent("buttonCubeTLTMR", "click", function () {
+  teleopCube--;
+  teleopLowCube--;
+  hideElement("buttonCubeTLTMR");
+  showElement("buttonTLTMR");
+});
+onEvent("buttonTLTBR", "click", function () {
+  teleopCone++;
+  teleopLowCone++;
+  showElement("buttonConeTLTBR");
+  hideElement("buttonTLTBR");
+});
+onEvent("buttonConeTLTBR", "click", function () {
+  teleopCone--;
+  teleopLowCone--;
+  teleopCube++;
+  teleopLowCube++;
+  hideElement("buttonConeTLTBR");
+  showElement("buttonCubeTLTBR");
+});
+onEvent("buttonCubeTLTBR", "click", function () {
+  teleopCube--;
+  teleopLowCube--;
+  hideElement("buttonCubeTLTBR");
+  showElement("buttonTLTBR");
+});
+onEvent("buttonTLMTR", "click", function () {
+  teleopCone++;
+  teleopLowCone++;
+  showElement("buttonConeTLMTR");
+  hideElement("buttonTLMTR");
+});
+onEvent("buttonConeTLMTR", "click", function () {
+  teleopCone--;
+  teleopLowCone--;
+  teleopCube++;
+  teleopLowCube++;
+  hideElement("buttonConeTLMTR");
+  showElement("buttonCubeTLMTR");
+});
+onEvent("buttonCubeTLMTR", "click", function () {
+  teleopCube--;
+  teleopLowCube--;
+  hideElement("buttonCubeTLMTR");
+  showElement("buttonTLMTR");
+});
+onEvent("buttonTLMMR", "click", function () {
+  teleopCone++;
+  teleopLowCone++;
+  showElement("buttonConeTLMMR");
+  hideElement("buttonTLMMR");
+});
+onEvent("buttonConeTLMMR", "click", function () {
+  teleopCone--;
+  teleopLowCone--;
+  teleopCube++;
+  teleopLowCube++;
+  hideElement("buttonConeTLMMR");
+  showElement("buttonCubeTLMMR");
+});
+onEvent("buttonCubeTLMMR", "click", function () {
+  teleopCube--;
+  teleopLowCube--;
+  hideElement("buttonCubeTLMMR");
+  showElement("buttonTLMMR");
+});
+onEvent("buttonTLMBR", "click", function () {
+  teleopCone++;
+  teleopLowCone++;
+  showElement("buttonConeTLMBR");
+  hideElement("buttonTLMBR");
+});
+onEvent("buttonConeTLMBR", "click", function () {
+  teleopCone--;
+  teleopLowCone--;
+  teleopCube++;
+  teleopLowCube++;
+  hideElement("buttonConeTLMBR");
+  showElement("buttonCubeTLMBR");
+});
+onEvent("buttonCubeTLMBR", "click", function () {
+  teleopCube--;
+  teleopLowCube--;
+  hideElement("buttonCubeTLMBR");
+  showElement("buttonTLMBR");
+});
+onEvent("buttonTLBTR", "click", function () {
+  teleopCone++;
+  teleopLowCone++;
+  showElement("buttonConeTLBTR");
+  hideElement("buttonTLBTR");
+});
+onEvent("buttonConeTLBTR", "click", function () {
+  teleopCone--;
+  teleopLowCone--;
+  teleopCube++;
+  teleopLowCube++;
+  hideElement("buttonConeTLBTR");
+  showElement("buttonCubeTLBTR");
+});
+onEvent("buttonCubeTLBTR", "click", function () {
+  teleopCube--;
+  teleopLowCube--;
+  hideElement("buttonCubeTLBTR");
+  showElement("buttonTLBTR");
+});
+onEvent("buttonTLBMR", "click", function () {
+  teleopCone++;
+  teleopLowCone++;
+  showElement("buttonConeTLBMR");
+  hideElement("buttonTLBMR");
+});
+onEvent("buttonConeTLBMR", "click", function () {
+  teleopCone--;
+  teleopLowCone--;
+  teleopCube++;
+  teleopLowCube++;
+  hideElement("buttonConeTLBMR");
+  showElement("buttonCubeTLBMR");
+});
+onEvent("buttonCubeTLBMR", "click", function () {
+  teleopCube--;
+  teleopLowCube--;
+  hideElement("buttonCubeTLBMR");
+  showElement("buttonTLBMR");
+});
+onEvent("buttonTLBBR", "click", function () {
+  teleopCone++;
+  teleopLowCone++;
+  showElement("buttonConeTLBBR");
+  hideElement("buttonTLBBR");
+});
+onEvent("buttonConeTLBBR", "click", function () {
+  teleopCone--;
+  teleopLowCone--;
+  teleopCube++;
+  teleopLowCube++;
+  hideElement("buttonConeTLBBR");
+  showElement("buttonCubeTLBBR");
+});
+onEvent("buttonCubeTLBBR", "click", function () {
+  teleopCube--;
+  teleopLowCube--;
+  hideElement("buttonCubeTLBBR");
+  showElement("buttonTLBBR");
+});
+//button right
+onEvent("buttonTRTTL", "click", function () {
+  teleopCone++;
+  teleopLowCone++;
+  showElement("buttonConeTRTTL");
+  hideElement("buttonTRTTL");
+});
+onEvent("buttonConeTRTTL", "click", function () {
+  teleopCone--;
+  teleopLowCone--;
+  teleopCube++;
+  teleopLowCube++;
+  hideElement("buttonConeTRTTL");
+  showElement("buttonCubeTRTTL");
+});
+onEvent("buttonCubeTRTTL", "click", function () {
+  teleopCube--;
+  teleopLowCube--;
+  hideElement("buttonCubeTRTTL");
+  showElement("buttonTRTTL");
+});
+onEvent("buttonTRTML", "click", function () {
+  teleopCone++;
+  teleopLowCone++;
+  showElement("buttonConeTRTML");
+  hideElement("buttonTRTML");
+});
+onEvent("buttonConeTRTML", "click", function () {
+  teleopCone--;
+  teleopLowCone--;
+  teleopCube++;
+  teleopLowCube++;
+  hideElement("buttonConeTRTML");
+  showElement("buttonCubeTRTML");
+});
+onEvent("buttonCubeTRTML", "click", function () {
+  teleopCube--;
+  teleopLowCube--;
+  hideElement("buttonCubeTRTML");
+  showElement("buttonTRTML");
+});
+onEvent("buttonTRTBL", "click", function () {
+  teleopCone++;
+  teleopLowCone++;
+  showElement("buttonConeTRTBL");
+  hideElement("buttonTRTBL");
+});
+onEvent("buttonConeTRTBL", "click", function () {
+  teleopCone--;
+  teleopLowCone--;
+  teleopCube++;
+  teleopLowCube++;
+  hideElement("buttonConeTRTBL");
+  showElement("buttonCubeTRTBL");
+});
+onEvent("buttonCubeTRTBL", "click", function () {
+  teleopCube--;
+  teleopLowCube--;
+  hideElement("buttonCubeTRTBL");
+  showElement("buttonTRTBL");
+});
+onEvent("buttonTRMTL", "click", function () {
+  teleopCone++;
+  teleopLowCone++;
+  showElement("buttonConeTRMTL");
+  hideElement("buttonTRMTL");
+});
+onEvent("buttonConeTRMTL", "click", function () {
+  teleopCone--;
+  teleopLowCone--;
+  teleopCube++;
+  teleopLowCube++;
+  hideElement("buttonConeTRMTL");
+  showElement("buttonCubeTRMTL");
+});
+onEvent("buttonCubeTRMTL", "click", function () {
+  teleopCube--;
+  teleopLowCube--;
+  hideElement("buttonCubeTRMTL");
+  showElement("buttonTRMTL");
+});
+onEvent("buttonTRMML", "click", function () {
+  teleopCone++;
+  teleopLowCone++;
+  showElement("buttonConeTRMML");
+  hideElement("buttonTRMML");
+});
+onEvent("buttonConeTRMML", "click", function () {
+  teleopCone--;
+  teleopLowCone--;
+  teleopCube++;
+  teleopLowCube++;
+  hideElement("buttonConeTRMML");
+  showElement("buttonCubeTRMML");
+});
+onEvent("buttonCubeTRMML", "click", function () {
+  teleopCube--;
+  teleopLowCube--;
+  hideElement("buttonCubeTRMML");
+  showElement("buttonTRMML");
+});
+onEvent("buttonTRMBL", "click", function () {
+  teleopCone++;
+  teleopLowCone++;
+  showElement("buttonConeTRMBL");
+  hideElement("buttonTRMBL");
+});
+onEvent("buttonConeTRMBL", "click", function () {
+  teleopCone--;
+  teleopLowCone--;
+  teleopCube++;
+  teleopLowCube++;
+  hideElement("buttonConeTRMBL");
+  showElement("buttonCubeTRMBL");
+});
+onEvent("buttonCubeTRMBL", "click", function () {
+  teleopCube--;
+  teleopLowCube--;
+  hideElement("buttonCubeTRMBL");
+  showElement("buttonTRMBL");
+});
+onEvent("buttonTRBTL", "click", function () {
+  teleopCone++;
+  teleopLowCone++;
+  showElement("buttonConeTRBTL");
+  hideElement("buttonTRBTL");
+});
+onEvent("buttonConeTRBTL", "click", function () {
+  teleopCone--;
+  teleopLowCone--;
+  teleopCube++;
+  teleopLowCube++;
+  hideElement("buttonConeTRBTL");
+  showElement("buttonCubeTRBTL");
+});
+onEvent("buttonCubeTRBTL", "click", function () {
+  teleopCube--;
+  teleopLowCube--;
+  hideElement("buttonCubeTRBTL");
+  showElement("buttonTRBTL");
+});
+onEvent("buttonTRBML", "click", function () {
+  teleopCone++;
+  teleopLowCone++;
+  showElement("buttonConeTRBML");
+  hideElement("buttonTRBML");
+});
+onEvent("buttonConeTRBML", "click", function () {
+  teleopCone--;
+  teleopLowCone--;
+  teleopCube++;
+  teleopLowCube++;
+  hideElement("buttonConeTRBML");
+  showElement("buttonCubeTRBML");
+});
+onEvent("buttonCubeTRBML", "click", function () {
+  teleopCube--;
+  teleopLowCube--;
+  hideElement("buttonCubeTRBML");
+  showElement("buttonTRBML");
+});
+onEvent("buttonTRBBL", "click", function () {
+  teleopCone++;
+  teleopLowCone++;
+  showElement("buttonConeTRBBL");
+  hideElement("buttonTRBBL");
+});
+onEvent("buttonConeTRBBL", "click", function () {
+  teleopCone--;
+  teleopLowCone--;
+  teleopCube++;
+  teleopLowCube++;
+  hideElement("buttonConeTRBBL");
+  showElement("buttonCubeTRBBL");
+});
+onEvent("buttonCubeTRBBL", "click", function () {
+  teleopCube--;
+  teleopLowCube--;
+  hideElement("buttonCubeTRBBL");
+  showElement("buttonTRBBL");
 });
