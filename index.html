@@ -867,14 +867,14 @@
   }
 </script>
 <script>
-$(window).bind("beforeunload",function(event) {
+  $(window).bind("beforeunload", function (event) {
     return "You have some unsaved changes";
-});
+  });
 </script>
 <script>
-window.onbeforeunload = function() {
+  window.onbeforeunload = function () {
     return "Make sure you click export before closing the tab!";
-};
+  };
 </script>
 
 </html>
