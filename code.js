@@ -237,7 +237,7 @@ onEvent("submit", "click", function () {
   var time = datetime.toISOString();
   var filename = "scouting_data " + scouterName + " " + time + ".csv";
   if (counter % 5 == 0) {
-	  exportToCsv(filename, csvContent);
+    exportToCsv(filename, csvContent);
   }
   createDownloadLink("#export", csvContent, filename);
   counter++;
