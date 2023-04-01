@@ -27,14 +27,14 @@ var teleopLowCube = 0;
 var points = 0;
 var defense = false;
 var notMove = false;
-var length = 31;
+var length = 34;
 var height = 121;
 var loc = "";
 var data = new Array(length);
 for (var i = 0; i < height; i++) {
   data[i] = new Array(length);
 }
-var list = ["teamNumber", "scouterName", "matchNumber", "autoMobility", "autoDock", "autoEngage", "autoCone", "autoCube", "teleopPark", "teleopDock", "teleopEngage", "teleopCone", "teleopCube", "autoHighCone", "autoHighCube", "autoMidCone", "autoMidCube", "autoLowCone", "autoLowCube", "teleopHighCone", "teleopHighCube", "teleopMidCone", "teleopMidCube", "teleopLowCone", "teleopLowCube", "Auto Points", "Teleop Points", "points", "Defense", "Did not move", "comments"];
+var list = ["teamNumber", "scouterName", "matchNumber", "autoMobility", "autoDock", "autoEngage", "autoCone", "autoCube", "teleopPark", "teleopDock", "teleopEngage", "teleopCone", "teleopCube", "autoHighCone", "autoHighCube", "autoMidCone", "autoMidCube", "autoLowCone", "autoLowCube", "teleopHighCone", "teleopHighCube", "teleopMidCone", "teleopMidCube", "teleopLowCone", "teleopLowCube", "Auto Points", "Teleop Points", "Auto Charging", "Teleop Charging", "Total Cones", "Total Cube", "Total Game Pieces", "Points without Endgame", "points", "Team Number 2", "Defense", "Did not move", "comments"];
 for (var i = 0; i < list.length; i++) {
   data[0][i] = list[i];
 }
@@ -73,10 +73,11 @@ onEvent("continueTeleopRight", "click", function () {
   if (getChecked("checkboxTREngaged") == true) {
     teleopEngage = true;
     teleopPark = false;
+    teleopDock = true;
   } else if (getChecked("checkboxTREngaged") == false) {
     teleopEngage = false;
   }
-  loc = "Teleop Right";
+  loc = "TR";
   setScreen("final");
 });
 onEvent("continueTeleopLeft", "click", function () {
@@ -94,10 +95,11 @@ onEvent("continueTeleopLeft", "click", function () {
   if (getChecked("checkboxTLEngaged") == true) {
     teleopEngage = true;
     teleopPark = false;
+    teleopDock = true;
   } else if (getChecked("checkboxTLEngaged") == false) {
     teleopEngage = false;
   }
-  loc = "Teleop Left";
+  loc = "TL";
   setScreen("final");
 });
 onEvent("continueAutoRight", "click", function () {
@@ -138,9 +140,9 @@ onEvent("continueAutoLeft", "click", function () {
 });
 //back buttons
 onEvent("backSubmitButton", "click", function () {
-  if (loc = "Teleop Right") {
+  if (loc == "TR") {
     setScreen("teleopRight");
-  } else if (loc = "Teleop Left") {
+  } else if (loc == "TL") {
     setScreen("teleopLeft");
   }
 });
@@ -158,6 +160,13 @@ onEvent("TRBack", "click", function () {
 });
 onEvent("submit", "click", function () {
   var comments = getText("Comments");
+  for (var i = 0; i < comments.length; i++) {
+    if (comments[i] == ",") {
+      comments = comments.substring(0, i) + ";" + comments.substring(i + 1, comments.length);
+    }
+  }
+  var autoCharging = 0;
+  var teleopCharging = 0;
   if (getChecked("checkboxDefense") == true) {
     defense = true;
   } else {
@@ -171,28 +180,34 @@ onEvent("submit", "click", function () {
   var autoPoints = 6 * autoHighCone + 6 * autoHighCube + 4 * autoMidCone + 4 * autoMidCube + 3 * autoLowCone + 3 * autoLowCube;
   var teleopPoints = 5 * teleopHighCone + 5 * teleopHighCube + 3 * teleopMidCone + 3 * teleopMidCube + 2 * teleopLowCone + 2 * teleopLowCube;
   if (autoMobility == true) {
-    autoPoints = autoPoints + 3;
+    autoChargin = autoCharging + 3;
   }
   if (autoDock == true) {
-    autoPoints = autoPoints + 8;
+    autoCharging = autoCharging + 8;
   }
   if (autoEngage == true && autoDock == true) {
-    autoPoints = autoPoints + 4;
+    autoCharging = autoCharging + 4;
   } else if (autoEngage == true) {
-    autoPoints = autoPoints + 12;
+    autoCharging = autoCharging + 12;
   }
+  autoPoints = autoPoints + autoCharging;
   if (teleopPark == true) {
-    teleopPoints = teleopPoints + 2;
+    teleopCharging = teleopCharging + 2;
   }
   if (teleopDock == true) {
-    teleopPoints = teleopPoints + 6;
+    teleopCharging = teleopCharging + 6;
   }
   if (teleopEngage == true && teleopDock == true) {
-    teleopPoints = teleopPoints + 4;
+    teleopCharging = teleopCharging + 4;
   } else if (autoEngage == true) {
-    teleopPoints = teleopPoints + 10;
+    teleopCharging = teleopCharging + 10;
   }
+  teleopPoints = teleopCharging + teleopPoints;
   points = autoPoints + teleopPoints;
+  var pointsWOEndgame = points - teleopCharging;
+  var totalGamePieces = autoCone + autoCube + teleopCone + teleopCube;
+  var totalCone = autoCone + teleopCone;
+  var totalCube = autoCube + teleopCube;
   sessionData[0] = teamNumber;
   sessionData[1] = scouterName;
   sessionData[2] = matchNumber;
@@ -220,10 +235,17 @@ onEvent("submit", "click", function () {
   sessionData[24] = teleopLowCube;
   sessionData[25] = autoPoints;
   sessionData[26] = teleopPoints;
-  sessionData[27] = points;
-  sessionData[28] = defense;
-  sessionData[29] = notMove;
-  sessionData[30] = comments;
+  sessionData[27] = autoCharging;
+  sessionData[28] = teleopCharging;
+  sessionData[29] = totalCone;
+  sessionData[30] = totalCube;
+  sessionData[31] = totalGamePieces;
+  sessionData[32] = pointsWOEndgame;
+  sessionData[33] = points;
+  sessionData[34] = teamNumber;
+  sessionData[35] = defense;
+  sessionData[36] = notMove
+  sessionData[37] = comments;
   for (var i = 0; i < sessionData.length; i++) {
     data[counter][i] = sessionData[i];
   }

@@ -1,10 +1,10 @@
-# ScoutingApp2023
+# 2023 Scouting App2023
 
 This is the scouting app for 2023 to track how other teams perform.
 
 ## How to Download
 
-Download the code by clicking the green `Code` button and click `Download zip` from the dropdown menu.
+Download the code by clicking the green `Code` button and click `Download ZIP` from the dropdown menu.
 
 ![Alt text](assets/Download_zip.png?raw=true "Zip download")
 
@@ -28,11 +28,11 @@ Click the checkbox where the robot scores. The blue buttons for the bottom nodes
 
 ![Alt text](assets/scoutingAppTeleop.png?raw=true "Teleop")
 
-The same things for auto also apply to teleop. Park is when the robot is inside the community lines when the game is over, you don't have to click it if the robot is docked or engaged. Make sure that you are specifically putting only the game pieces scored during teleop. You can tell when auto has finished when a sound plays and the drive teams are able to manually control their robots.
+The same things for auto also apply to teleop. Park is when the robot is inside the community lines when the game is over, you don't have to click it if the robot is docked or engaged. Make sure that you are specifically putting only the game pieces scored during teleop. You can tell when auto has finished when a sound plays and drive teams are able to manually control their robots.
 
 ![Alt text](assets/finalPage.png?raw=true "Final")
 
-Some robots focus on being defensive rather than scoring points. If the robot you are scouting only does this, select `Yes` on the final page and make additional notes on how well they defend in the `Additional Notes` section. Otherwise, just leave it blank. Additionally, some robots may stop moving or not move at all during the match. If this happens click the yes button under the Robot did not move box.
+Some robots focus on being defensive rather than scoring points. If the robot you are scouting only does this, select `Yes` on the final page and make additional notes on how well they defend in the `Additional Notes` section, otherwise, just leave it blank. Additionally, some robots may stop moving or not move at all during the match. If this happens click the yes button under the Robot did not move box.
 
 Enter any additional notes on the team's performance in the `Additional Notes` section.
 

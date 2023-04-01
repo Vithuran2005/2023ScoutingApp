@@ -23,7 +23,7 @@
       <div contenteditable="false" class="textArea" id="homeTitle"
         style="width: 310px; height: 80px; border-style: solid; background-color: rgb(245, 245, 246); color: rgb(53, 60, 66); border-color: rgb(128, 167, 185); border-radius: 0px; border-width: 1px; font-family: &quot;Comic Sans MS&quot;, cursive, sans-serif; padding: 5px 15px; position: absolute; left: 5px; top: 5px; margin: 0px; text-align: center; font-size: 45px;">
         Scouting App</div>
-      <div contenteditable="true" class="textArea" id="colorQuestion"
+      <div contenteditable="false" class="textArea" id="colorQuestion"
         style="width: 165px; height: 60px; border-style: solid; background-color: rgb(245, 245, 246); color: rgb(53, 60, 66); border-color: rgb(128, 167, 185); border-radius: 0px; border-width: 1px; font-family: &quot;Comic Sans MS&quot;, cursive, sans-serif; font-size: 20px; padding: 5px 15px; position: absolute; left: 5px; top: 220px; margin: 0px;">
         Alliance Side:</div><button id="continueHome"
         style="padding: 0px; margin: 0px; border-style: solid; height: 60px; width: 120px; background-color: rgb(178, 217, 235); color: rgb(53, 60, 66); border-color: rgb(128, 167, 185); border-radius: 0px; border-width: 2px; font-family: &quot;Comic Sans MS&quot;, cursive, sans-serif; font-size: 20px; position: absolute; left: 100px; top: 370px;">Continue</button><select
@@ -62,7 +62,7 @@
         Engaged? (On the platform with lights glowing)</div>
       <div contenteditable="false" class="textArea" id="mobilityQ"
         style="width: 175px; height: 60px; border-style: solid; background-color: rgb(245, 245, 246); color: rgb(53, 60, 66); border-color: rgb(128, 167, 185); border-radius: 0px; border-width: 1px; font-family: &quot;Comic Sans MS&quot;, cursive, sans-serif; font-size: 13px; padding: 5px 15px; position: absolute; left: 140px; top: 75px; margin: 0px;">
-        Mobility? (Cross the community (red/blue) line))</div>
+        Mobility? (Cross the community (red/blue) line)</div>
       <div contenteditable="false" class="textArea" id="dockedQ"
         style="width: 175px; height: 50px; border-style: solid; background-color: rgb(245, 245, 246); color: rgb(53, 60, 66); border-color: rgb(128, 167, 185); border-radius: 0px; border-width: 1px; font-family: &quot;Comic Sans MS&quot;, cursive, sans-serif; font-size: 13px; padding: 5px 15px; position: absolute; left: 140px; top: 175px; margin: 0px;">
         Docked? (On the platform)</div><input type="checkbox" id="checkboxALEngaged"
@@ -867,24 +867,24 @@
   }
 </script>
 <script>
-function exportToCsv(filename, csvFile) {
+  function exportToCsv(filename, csvFile) {
     var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
-    if (navigator.msSaveBlob) { // IE 10+
-        navigator.msSaveBlob(blob, filename);
+    if (navigator.msSaveBlob) {
+      navigator.msSaveBlob(blob, filename);
     } else {
-        var link = document.createElement("a");
-        if (link.download !== undefined) { // feature detection
-            // Browsers that support HTML5 download attribute
-            var url = URL.createObjectURL(blob);
-            link.setAttribute("href", url);
-            link.setAttribute("download", filename);
-            link.style.visibility = 'hidden';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
+      var link = document.createElement("a");
+      if (link.download !== undefined) { // feature detection
+        // Browsers that support HTML5 download attribute
+        var url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", filename);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
     }
-}
+  }
 </script>
 <script>
   window.onbeforeunload = function () {
